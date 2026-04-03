@@ -101,4 +101,15 @@ function renderTotals(income, expense) {
   expenseEl.textContent = formatter.format(expense);
 }
 
+function renderTransactionList(transactionList) {
+  transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
+  transactionList.forEach((item) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = item;
+    listItem.classList.add("list-item");
+    transactionListEL.appendChild(listItem);
+  });
+}
+
 renderTotals(income, expense);
+renderTransactionList(transactionList);
