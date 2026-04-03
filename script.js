@@ -88,3 +88,17 @@ const categoryAggregate = transactions.reduce((acc, { category, amount }) => {
   // 💡 Alternative: when I need to pay attention of memory (Mutating)
   // acc[category] = (acc[category] ?? 0) + absAmount;
 }, {});
+
+// ---  UI Rendering Functions ---
+const container = document.querySelector(".container");
+const containerInput = document.querySelector(".container-input");
+const incomeEl = document.getElementById("income");
+const expenseEl = document.getElementById("expense");
+const transactionListEL = document.getElementById("transaction-list");
+
+function renderTotals(income, expense) {
+  incomeEl.textContent = formatter.format(income);
+  expenseEl.textContent = formatter.format(expense);
+}
+
+renderTotals(income, expense);
