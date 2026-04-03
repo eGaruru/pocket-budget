@@ -68,3 +68,9 @@ const { income, expense } = transactions.reduce(
   },
   { income: 0, expense: 0 },
 );
+
+// Transaction list
+const transactionList = transactions.map(({ category, note, amount }) => {
+  const label = categoryLabels[category] ?? category;
+  return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
+});
