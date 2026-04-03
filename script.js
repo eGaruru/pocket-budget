@@ -74,3 +74,17 @@ const transactionList = transactions.map(({ category, note, amount }) => {
   const label = categoryLabels[category] ?? category;
   return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
 });
+
+// Category Aggregate
+const categoryAggregate = transactions.reduce((acc, { category, amount }) => {
+  if (amount >= 0) return acc;
+
+  const absAmount = Math.abs(amount);
+  return {
+    ...acc,
+    [category]: (acc[category] ?? 0) + absAmount,
+  };
+
+  // 💡 Alternative: when I need to pay attention of memory (Mutating)
+  // acc[category] = (acc[category] ?? 0) + absAmount;
+}, {});
