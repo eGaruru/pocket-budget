@@ -3,7 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Pocket Budget</title>
   </head>
-  <body></body>
+  <body>
+    <h1>How much money is in my pocket?</h1>
+    <section class="values">
+      <div class="total-value">
+        <h3>Total Income:</h3>
+        <p id="income">10000</p>
+      </div>
+      <div class="total-value">
+        <h3>Total Expense:</h3>
+        <p id="expense">10000</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="container-list">
+        <ul id="list">
+          <li>[Category] Note: 金額</li>
+          <li>[Category] Note: 金額</li>
+          <li>[Category] Note: 金額</li>
+          <li>[Category] Note: 金額</li>
+          <li>[Category] Note: 金額</li>
+        </ul>
+      </section>
+
+      <section class="container-input">
+        <p>Please input your income and expenses</p>
+        <form action="">
+          <div class="form-item">
+            <label>Category</label>
+            <input id="category-input" type="text" />
+          </div>
+          <div class="form-item">
+            <label for="note-input">Note</label>
+            <input id="note-input" type="text" />
+          </div>
+
+          <div class="form-item">
+            <label for="amount-input">Amount</label>
+            <input id="amount-input" type="number" required />
+          </div>
+
+          <button type="submit">Add Transaction</button>
+        </form>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
