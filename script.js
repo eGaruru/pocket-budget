@@ -1,1 +1,70 @@
 "use strict";
+
+// --- Constants & State ---
+const categoryLabels = {
+  food: "Food",
+  salary: "Salary",
+  utilities: "Utilities",
+  transport: "Transport",
+};
+
+// initial data
+const transactions = [
+  {
+    id: 1,
+    category: "food",
+    amount: -1200,
+    date: "2024-03-01",
+    note: "Lunch",
+  },
+  {
+    id: 2,
+    category: "salary",
+    amount: 300000,
+    date: "2024-03-25",
+    note: "Monthly salary",
+  },
+  {
+    id: 3,
+    category: "utilities",
+    amount: -15000,
+    date: "2024-03-05",
+    note: "Electricity",
+  },
+  {
+    id: 4,
+    category: "food",
+    amount: -4500,
+    date: "2024-03-10",
+    note: "Dinner",
+  },
+  { id: 5, category: "transport", amount: -2000, date: "2024-03-12", note: "" },
+  {
+    id: 6,
+    category: "salary",
+    amount: 5000,
+    date: "2024-03-15",
+    note: "Bonus",
+  },
+];
+
+// Format into currency
+const formatter = new Intl.NumberFormat("ja-JP", {
+  style: "currency",
+  currency: "JPY",
+});
+
+// --- Logic Functions ---
+// Summary
+const { income, expense } = transactions.reduce(
+  (acc, { amount }) => {
+    if (amount >= 0) {
+      acc.income += amount;
+    } else {
+      acc.expense += Math.abs(amount);
+    }
+
+    return acc;
+  },
+  { income: 0, expense: 0 },
+);
