@@ -9,7 +9,7 @@ const categoryLabels = {
 };
 
 // initial data
-const transactions = [
+let transactions = [
   {
     id: 1,
     category: "food",
@@ -56,38 +56,44 @@ const formatter = new Intl.NumberFormat("ja-JP", {
 
 // --- Logic Functions ---
 // Summary
-const { income, expense } = transactions.reduce(
-  (acc, { amount }) => {
-    if (amount >= 0) {
-      acc.income += amount;
-    } else {
-      acc.expense += Math.abs(amount);
-    }
+function calculateTotals(transactions) {
+  return transactions.reduce(
+    (acc, { amount }) => {
+      if (amount >= 0) {
+        acc.income += amount;
+      } else {
+        acc.expense += Math.abs(amount);
+      }
 
-    return acc;
-  },
-  { income: 0, expense: 0 },
-);
+      return acc;
+    },
+    { income: 0, expense: 0 },
+  );
+}
 
 // Transaction list
-const transactionList = transactions.map(({ category, note, amount }) => {
-  const label = categoryLabels[category] ?? category;
-  return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
-});
+function createTransactionList(transactions) {
+  return transactions.map(({ category, note, amount }) => {
+    const label = categoryLabels[category] ?? category;
+    return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
+  });
+}
 
 // Category Aggregate
-const categoryAggregate = transactions.reduce((acc, { category, amount }) => {
-  if (amount >= 0) return acc;
+function calculateCategoryAggregate(transactions) {
+  return transactions.reduce((acc, { category, amount }) => {
+    if (amount >= 0) return acc;
 
-  const absAmount = Math.abs(amount);
-  return {
-    ...acc,
-    [category]: (acc[category] ?? 0) + absAmount,
-  };
+    const absAmount = Math.abs(amount);
+    return {
+      ...acc,
+      [category]: (acc[category] ?? 0) + absAmount,
+    };
 
-  // 💡 Alternative: when I need to pay attention of memory (Mutating)
-  // acc[category] = (acc[category] ?? 0) + absAmount;
-}, {});
+    // 💡 Alternative: when I need to pay attention of memory (Mutating)
+    // acc[category] = (acc[category] ?? 0) + absAmount;
+  }, {});
+}
 
 // ---  UI Rendering Functions ---
 const container = document.querySelector(".container");
@@ -95,6 +101,16 @@ const containerInput = document.querySelector(".container-input");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
 const transactionListEL = document.getElementById("transaction-list");
+
+// Update
+function setTransactions(newTransactions) {
+  transactions = newTransactions;
+  const { income, expense } = calculateTotals(newTransactions);
+  const list = createTransactionList(newTransactions);
+
+  renderTotals(income, expense);
+  renderTransactionList(list);
+}
 
 function renderTotals(income, expense) {
   incomeEl.textContent = formatter.format(income);
@@ -111,5 +127,4 @@ function renderTransactionList(transactionList) {
   });
 }
 
-renderTotals(income, expense);
-renderTransactionList(transactionList);
+setTransactions(transactions);
