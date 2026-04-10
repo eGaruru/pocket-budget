@@ -95,12 +95,62 @@ function calculateCategoryAggregate(transactions) {
   }, {});
 }
 
-// ---  UI Rendering Functions ---
+// Transaction id
+function generateId() {
+  return crypto.randomUUID();
+}
+
+// Current date
+function getCurrentDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // month: 0 ~ 11
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+// New transaction
+function createTransaction(category, amount, note) {
+  return {
+    id: generateId(),
+    category,
+    amount,
+    date: getCurrentDate(),
+    note,
+  };
+}
+
+// ---  UI / Event Handlers ---
 const container = document.querySelector(".container");
 const containerInput = document.querySelector(".container-input");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
 const transactionListEL = document.getElementById("transaction-list");
+
+const form = document.getElementById("transaction-form");
+const categoryInput = document.getElementById("category-input");
+const noteInput = document.getElementById("note-input");
+const amountInput = document.getElementById("amount-input");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // validation
+  const amount = Number(amountInput.value);
+  if (!amount) {
+    alert("Please enter a number other than 0.");
+    return;
+  }
+
+  const newTransaction = createTransaction(
+    categoryInput.value,
+    amount,
+    noteInput.value,
+  );
+
+  setTransactions([...transactions, newTransaction]);
+});
 
 // Update
 function setTransactions(newTransactions) {
@@ -110,6 +160,7 @@ function setTransactions(newTransactions) {
 
   renderTotals(income, expense);
   renderTransactionList(list);
+  clearInputs();
 }
 
 function renderTotals(income, expense) {
@@ -125,6 +176,12 @@ function renderTransactionList(transactionList) {
     listItem.classList.add("list-item");
     transactionListEL.appendChild(listItem);
   });
+}
+
+function clearInputs() {
+  categoryInput.value = "";
+  noteInput.value = "";
+  amountInput.value = "";
 }
 
 setTransactions(transactions);
