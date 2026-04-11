@@ -71,14 +71,6 @@ function calculateTotals(transactions) {
   );
 }
 
-// Transaction list
-function createTransactionList(transactions) {
-  return transactions.map(({ category, note, amount }) => {
-    const label = categoryLabels[category] ?? category;
-    return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
-  });
-}
-
 // Category Aggregate
 function calculateCategoryAggregate(transactions) {
   return transactions.reduce((acc, { category, amount }) => {
@@ -121,6 +113,12 @@ function createTransaction(category, amount, note) {
   };
 }
 
+// Transaction listitem
+function createListItem({ category, note, amount }) {
+  const label = categoryLabels[category] ?? category;
+  return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
+}
+
 // ---  UI / Event Handlers ---
 const container = document.querySelector(".container");
 const containerInput = document.querySelector(".container-input");
@@ -156,10 +154,9 @@ form.addEventListener("submit", (e) => {
 function setTransactions(newTransactions) {
   transactions = newTransactions;
   const { income, expense } = calculateTotals(newTransactions);
-  const list = createTransactionList(newTransactions);
 
   renderTotals(income, expense);
-  renderTransactionList(list);
+  renderTransactionList(newTransactions);
   clearInputs();
 }
 
@@ -168,12 +165,14 @@ function renderTotals(income, expense) {
   expenseEl.textContent = formatter.format(expense);
 }
 
-function renderTransactionList(transactionList) {
+function renderTransactionList(transactions) {
   transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
-  transactionList.forEach((item) => {
+
+  transactions.forEach((transaction) => {
     const listItem = document.createElement("li");
-    listItem.textContent = item;
+    listItem.textContent = createListItem(transaction);
     listItem.classList.add("list-item");
+
     transactionListEL.appendChild(listItem);
   });
 }
