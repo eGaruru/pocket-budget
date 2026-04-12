@@ -179,6 +179,10 @@ function renderTransactionList(transactions) {
     deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
     deleteBtn.classList.add("delete-btn");
 
+    deleteBtn.addEventListener("click", () => {
+      deleteTransaction(transaction.id);
+    });
+
     listItem.appendChild(textSpan);
     listItem.appendChild(deleteBtn);
 
@@ -190,6 +194,14 @@ function clearInputs() {
   categoryInput.value = "";
   noteInput.value = "";
   amountInput.value = "";
+}
+
+function deleteTransaction(deleteId) {
+  if (!confirm("Are you sure you want to delete this transaction?")) return;
+  const filteredTransactions = transactions.filter(
+    (transaction) => transaction.id !== deleteId,
+  );
+  setTransactions(filteredTransactions);
 }
 
 setTransactions(transactions);
