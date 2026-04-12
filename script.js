@@ -148,6 +148,7 @@ form.addEventListener("submit", (e) => {
   );
 
   setTransactions([...transactions, newTransaction]);
+  clearInputs();
 });
 
 // Update
@@ -157,7 +158,6 @@ function setTransactions(newTransactions) {
 
   renderTotals(income, expense);
   renderTransactionList(newTransactions);
-  clearInputs();
 }
 
 function renderTotals(income, expense) {
