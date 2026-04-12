@@ -48,7 +48,29 @@
 
           <div class="form-item">
             <label for="amount-input">Amount</label>
-            <input id="amount-input" type="number" required />
+
+            <div class="form-item--amount">
+              <div class="form-radio-group">
+                <input
+                  type="radio"
+                  id="type-income"
+                  name="amount-type"
+                  value="income"
+                  checked
+                />
+                <label for="type-income">Income</label>
+
+                <input
+                  type="radio"
+                  id="type-expense"
+                  name="amount-type"
+                  value="expense"
+                />
+                <label for="type-expense">Expense</label>
+              </div>
+
+              <input id="amount-input" type="number" required />
+            </div>
           </div>
 
           <button type="submit">Add Transaction</button>

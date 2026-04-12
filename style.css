@@ -39,7 +39,19 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
+}
+
+.form-item--amount {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.form-radio-group {
+  font-size: 14px;
 }
 
 .list-item {
