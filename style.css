@@ -41,3 +41,22 @@ h1 {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  margin-left: 10px;
+  color: #9d9d9d;
+  transition: color 0.1s ease-in-out;
+}
+
+.delete-btn:hover {
+  color: #1d1d1d;
+}

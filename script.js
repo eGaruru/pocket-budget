@@ -170,8 +170,17 @@ function renderTransactionList(transactions) {
 
   transactions.forEach((transaction) => {
     const listItem = document.createElement("li");
-    listItem.textContent = createListItem(transaction);
     listItem.classList.add("list-item");
+
+    const textSpan = document.createElement("span");
+    textSpan.textContent = createListItem(transaction);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
+    deleteBtn.classList.add("delete-btn");
+
+    listItem.appendChild(textSpan);
+    listItem.appendChild(deleteBtn);
 
     transactionListEL.appendChild(listItem);
   });
