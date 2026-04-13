@@ -119,6 +119,23 @@ function createListItem({ category, note, amount }) {
   return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
 }
 
+// Validation
+function validateAmount(amount) {
+  let result = Number(amount);
+
+  if (isNaN(result)) {
+    alert("Please enter a valid number.");
+    return;
+  }
+
+  if (result <= 0) {
+    alert("Please enter a positive number.");
+    return;
+  }
+
+  return result;
+}
+
 // ---  UI / Event Handlers ---
 const container = document.querySelector(".container");
 const containerInput = document.querySelector(".container-input");
@@ -129,17 +146,20 @@ const transactionListEL = document.getElementById("transaction-list");
 const form = document.getElementById("transaction-form");
 const categoryInput = document.getElementById("category-input");
 const noteInput = document.getElementById("note-input");
+const typeIncomeInput = document.getElementById("type-income");
 const amountInput = document.getElementById("amount-input");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // validation
-  const amount = Number(amountInput.value);
-  if (!amount) {
-    alert("Please enter a number other than 0.");
-    return;
-  }
+  let amount = validateAmount(amountInput.value);
+  if (!amount) return;
+
+  const selectedAmountType = document.querySelector(
+    'input[name="amount-type"]:checked',
+  ).value;
+  const isIncome = selectedAmountType === "income";
+  amount = isIncome ? amount : -amount;
 
   const newTransaction = createTransaction(
     categoryInput.value,
@@ -193,6 +213,7 @@ function renderTransactionList(transactions) {
 function clearInputs() {
   categoryInput.value = "";
   noteInput.value = "";
+  typeIncomeInput.checked = true;
   amountInput.value = "";
 }
 
