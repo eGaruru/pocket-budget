@@ -1,6 +1,8 @@
 "use strict";
 
 // --- Constants & State ---
+const STORAGE_KEY_TRANSACTIONS = "pocket-budget-transactions";
+
 const categoryLabels = {
   food: "Food",
   salary: "Salary",
@@ -174,6 +176,9 @@ form.addEventListener("submit", (e) => {
 // Update
 function setTransactions(newTransactions) {
   transactions = newTransactions;
+
+  saveTransactions(newTransactions);
+
   const { income, expense } = calculateTotals(newTransactions);
 
   renderTotals(income, expense);
@@ -223,6 +228,26 @@ function deleteTransaction(deleteId) {
     (transaction) => transaction.id !== deleteId,
   );
   setTransactions(filteredTransactions);
+}
+
+// --- Local storage ---
+function loadTransactions() {
+  const data = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
+
+  if (!data) return [];
+
+  try {
+    const parsed = JSON.parse(data);
+    if (!Array.isArray(parsed)) return [];
+    return parsed;
+  } catch {
+    console.error("Failed to parse transactions");
+    return [];
+  }
+}
+
+function saveTransactions(transactions) {
+  localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
 }
 
 setTransactions(transactions);
