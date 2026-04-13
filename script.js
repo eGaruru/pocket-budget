@@ -250,4 +250,6 @@ function saveTransactions(transactions) {
   localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
 }
 
-setTransactions(transactions);
+const localData = loadTransactions();
+const initialTransaction = localData.length > 0 ? localData : transactions;
+setTransactions(initialTransaction);
