@@ -3,11 +3,15 @@
 // --- Constants & State ---
 const STORAGE_KEY_TRANSACTIONS = "pocket-budget-transactions";
 
-const categoryLabels = {
-  food: "Food",
-  salary: "Salary",
-  utilities: "Utilities",
-  transport: "Transport",
+const categories = {
+  salary: { label: "Salary", type: "income", icon: "💼" },
+  bonus: { label: "Bonus", type: "income", icon: "💰" },
+  gift: { label: "Gift", type: "income", icon: "🎁" },
+  food: { label: "Food", type: "expense", icon: "🍔" },
+  utilities: { label: "Utilities", type: "expense", icon: "💡" },
+  transport: { label: "Transport", type: "expense", icon: "🚃" },
+  entertainment: { label: "Entertainment", type: "expense", icon: "🎥" },
+  housing: { label: "Housing", type: "expense", icon: "🏠" },
 };
 
 // initial data
@@ -117,7 +121,7 @@ function createTransaction(category, amount, note) {
 
 // Transaction listitem
 function createListItem({ category, note, amount }) {
-  const label = categoryLabels[category] ?? category;
+  const label = categories[category]?.label ?? category;
   return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
 }
 
@@ -146,10 +150,23 @@ const expenseEl = document.getElementById("expense");
 const transactionListEL = document.getElementById("transaction-list");
 
 const form = document.getElementById("transaction-form");
-const categoryInput = document.getElementById("category-input");
+const categoryTagsEl = document.getElementById("category-tags");
 const noteInput = document.getElementById("note-input");
 const typeIncomeInput = document.getElementById("type-income");
 const amountInput = document.getElementById("amount-input");
+
+categoryTagsEl.addEventListener("click", (e) => {
+  const target = e.target;
+  console.log(target);
+
+  if (!target.classList.contains("tag")) return;
+
+  categoryTagsEl
+    .querySelectorAll(".tag")
+    .forEach((tag) => tag.classList.remove("is-selected"));
+
+  target.classList.add("is-selected");
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -163,11 +180,14 @@ form.addEventListener("submit", (e) => {
   const isIncome = selectedAmountType === "income";
   amount = isIncome ? amount : -amount;
 
-  const newTransaction = createTransaction(
-    categoryInput.value,
-    amount,
-    noteInput.value,
-  );
+  const selectedCategoryEl = categoryTagsEl.querySelector(".tag.is-selected");
+  const category = selectedCategoryEl?.dataset.category;
+  if (!category) {
+    alert("Please select a category.");
+    return;
+  }
+
+  const newTransaction = createTransaction(category, amount, noteInput.value);
 
   setTransactions([...transactions, newTransaction]);
   clearInputs();
@@ -188,6 +208,17 @@ function setTransactions(newTransactions) {
 function renderTotals(income, expense) {
   incomeEl.textContent = formatter.format(income);
   expenseEl.textContent = formatter.format(expense);
+}
+
+function renderCategoryTags(categories) {
+  categoryTagsEl.replaceChildren();
+  Object.entries(categories).forEach(([key, { label }]) => {
+    const tag = document.createElement("span");
+    tag.classList.add("tag");
+    tag.textContent = label;
+    tag.dataset.category = key;
+    categoryTagsEl.appendChild(tag);
+  });
 }
 
 function renderTransactionList(transactions) {
@@ -216,7 +247,6 @@ function renderTransactionList(transactions) {
 }
 
 function clearInputs() {
-  categoryInput.value = "";
   noteInput.value = "";
   typeIncomeInput.checked = true;
   amountInput.value = "";
@@ -252,4 +282,6 @@ function saveTransactions(transactions) {
 
 const localData = loadTransactions();
 const initialTransaction = localData.length > 0 ? localData : transactions;
+
 setTransactions(initialTransaction);
+renderCategoryTags(categories);
