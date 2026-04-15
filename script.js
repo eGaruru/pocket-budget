@@ -136,12 +136,12 @@ function createListItem({ category, note, amount }) {
 function validateCategory(category) {
   if (!category) {
     alert("Please select a category.");
-    return;
+    return null;
   }
 
   if (!categories[category]) {
     console.error("Invalid category");
-    return;
+    return null;
   }
 
   return category;
@@ -152,12 +152,12 @@ function validateAmount(amount) {
 
   if (isNaN(result)) {
     alert("Please enter a valid number.");
-    return;
+    return null;
   }
 
   if (result <= 0) {
     alert("Please enter a positive number.");
-    return;
+    return null;
   }
 
   return result;
