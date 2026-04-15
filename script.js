@@ -128,8 +128,12 @@ function createTransaction(category, amount, note) {
 
 // Transaction listitem
 function createListItem({ category, note, amount }) {
-  const label = categories[category]?.label ?? category;
-  return `[${label}] ${note || "No note"}: ${formatter.format(amount)}`;
+  const categoryData = categories[category];
+
+  const label = categoryData?.label ?? category;
+  const icon = categoryData?.icon ? `${categoryData.icon} ` : "";
+
+  return `[${icon}${label}] ${note || "No note"}: ${formatter.format(amount)}`;
 }
 
 // Validation
