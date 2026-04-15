@@ -90,10 +90,6 @@ h1 {
   align-items: start;
 }
 
-.form-radio-group {
-  font-size: 14px;
-}
-
 #note-input,
 #amount-input {
   width: 100%;

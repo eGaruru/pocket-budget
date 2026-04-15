@@ -110,10 +110,17 @@ function getCurrentDate() {
 
 // New transaction
 function createTransaction(category, amount, note) {
+  const categoryData = categories[category];
+
+  if (!categoryData) {
+    console.error("Invalid category is selected");
+    return;
+  }
+
   return {
     id: generateId(),
     category,
-    amount,
+    amount: categoryData.type === "income" ? amount : -amount,
     date: getCurrentDate(),
     note,
   };
@@ -126,6 +133,20 @@ function createListItem({ category, note, amount }) {
 }
 
 // Validation
+function validateCategory(category) {
+  if (!category) {
+    alert("Please select a category.");
+    return;
+  }
+
+  if (!categories[category]) {
+    console.error("Invalid category");
+    return;
+  }
+
+  return category;
+}
+
 function validateAmount(amount) {
   let result = Number(amount);
 
@@ -152,12 +173,10 @@ const transactionListEL = document.getElementById("transaction-list");
 const form = document.getElementById("transaction-form");
 const categoryTagsEl = document.getElementById("category-tags");
 const noteInput = document.getElementById("note-input");
-const typeIncomeInput = document.getElementById("type-income");
 const amountInput = document.getElementById("amount-input");
 
 categoryTagsEl.addEventListener("click", (e) => {
   const target = e.target;
-  console.log(target);
 
   if (!target.classList.contains("tag")) return;
 
@@ -174,18 +193,9 @@ form.addEventListener("submit", (e) => {
   let amount = validateAmount(amountInput.value);
   if (!amount) return;
 
-  const selectedAmountType = document.querySelector(
-    'input[name="amount-type"]:checked',
-  ).value;
-  const isIncome = selectedAmountType === "income";
-  amount = isIncome ? amount : -amount;
-
   const selectedCategoryEl = categoryTagsEl.querySelector(".tag.is-selected");
-  const category = selectedCategoryEl?.dataset.category;
-  if (!category) {
-    alert("Please select a category.");
-    return;
-  }
+  const category = validateCategory(selectedCategoryEl?.dataset.category);
+  if (!category) return;
 
   const newTransaction = createTransaction(category, amount, noteInput.value);
 
@@ -203,6 +213,7 @@ function setTransactions(newTransactions) {
 
   renderTotals(income, expense);
   renderTransactionList(newTransactions);
+  renderCategoryTags(categories);
 }
 
 function renderTotals(income, expense) {
@@ -212,11 +223,14 @@ function renderTotals(income, expense) {
 
 function renderCategoryTags(categories) {
   categoryTagsEl.replaceChildren();
-  Object.entries(categories).forEach(([key, { label }]) => {
+  Object.entries(categories).forEach(([key, { label }], i) => {
     const tag = document.createElement("span");
     tag.classList.add("tag");
     tag.textContent = label;
     tag.dataset.category = key;
+
+    if (i === 0) tag.classList.add("is-selected");
+
     categoryTagsEl.appendChild(tag);
   });
 }
@@ -248,7 +262,6 @@ function renderTransactionList(transactions) {
 
 function clearInputs() {
   noteInput.value = "";
-  typeIncomeInput.checked = true;
   amountInput.value = "";
 }
 
@@ -281,7 +294,6 @@ function saveTransactions(transactions) {
 }
 
 const localData = loadTransactions();
-const initialTransaction = localData.length > 0 ? localData : transactions;
+const initialTransactions = localData.length > 0 ? localData : transactions;
 
-setTransactions(initialTransaction);
-renderCategoryTags(categories);
+setTransactions(initialTransactions);
