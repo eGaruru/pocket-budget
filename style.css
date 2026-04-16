@@ -62,24 +62,36 @@ h1 {
 
 .tag {
   cursor: pointer;
-  background-color: #cacaca;
   color: #fff;
+  background-color: var(--tag-bg);
   padding: 8px 16px;
   margin: 0 10px 5px 0;
   font-size: 14px;
+  font-weight: 600;
   border-radius: 8px;
-}
 
-.tag:hover {
-  background-color: #9d9d9d;
-}
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 
-.tag:active {
-  transform: scale(0.98);
-}
+  &[data-type="income"] {
+    --tag-bg: #7eb6b8;
+    --tag-bg-hover: #3d7d85;
+  }
 
-.tag.is-selected {
-  background-color: #737373;
+  &[data-type="expense"] {
+    --tag-bg: #f3a69f;
+    --tag-bg-hover: #ee847b;
+  }
+
+  &:hover,
+  &.is-selected {
+    background-color: var(--tag-bg-hover);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
 .form-item--amount {

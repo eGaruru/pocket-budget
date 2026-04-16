@@ -227,11 +227,12 @@ function renderTotals(income, expense) {
 
 function renderCategoryTags(categories) {
   categoryTagsEl.replaceChildren();
-  Object.entries(categories).forEach(([key, { label }], i) => {
+  Object.entries(categories).forEach(([key, { label, type }], i) => {
     const tag = document.createElement("span");
     tag.classList.add("tag");
     tag.textContent = label;
     tag.dataset.category = key;
+    tag.dataset.type = type;
 
     if (i === 0) tag.classList.add("is-selected");
 
