@@ -25,7 +25,23 @@ h1 {
 }
 
 .total-value {
-  padding: 0 40px;
+  padding: 20px 40px;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+#category-total-value {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
 }
 
 .container {
@@ -124,4 +140,16 @@ h1 {
 
 .delete-btn:hover {
   color: #1d1d1d;
+}
+
+@media (max-width: 768px) {
+  #category-total-value {
+    height: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .total-value {
+    padding: 20px 20px;
+  }
 }

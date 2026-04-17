@@ -172,6 +172,7 @@ const container = document.querySelector(".container");
 const containerInput = document.querySelector(".container-input");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
+const categoryTotalsEl = document.getElementById("category-total-value");
 const transactionListEL = document.getElementById("transaction-list");
 
 const form = document.getElementById("transaction-form");
@@ -213,16 +214,29 @@ function setTransactions(newTransactions) {
 
   saveTransactions(newTransactions);
 
-  const { income, expense } = calculateTotals(newTransactions);
-
-  renderTotals(income, expense);
+  renderTotals(newTransactions);
   renderTransactionList(newTransactions);
   renderCategoryTags(categories);
 }
 
-function renderTotals(income, expense) {
+function renderTotals(transactions) {
+  const { income, expense } = calculateTotals(transactions);
+
   incomeEl.textContent = formatter.format(income);
   expenseEl.textContent = formatter.format(expense);
+
+  const categoryAggregate = calculateCategoryAggregate(transactions);
+
+  categoryTotalsEl.replaceChildren(); // or categoryTotalsEl.innerHTML = ""
+
+  Object.entries(categoryAggregate).forEach(([key, value]) => {
+    const listItem = document.createElement("li");
+
+    const { label, icon } = categories[key];
+    listItem.textContent = `${icon} ${label}: ${formatter.format(value)}`;
+
+    categoryTotalsEl.appendChild(listItem);
+  });
 }
 
 function renderCategoryTags(categories) {
