@@ -1,35 +1,295 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  background: linear-gradient(#e3f8ff, #beedff, #e3f8ff);
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
   overflow: hidden;
   margin: 0;
-  padding: 0 20px;
+  padding: 20px;
 }
 
-h1 {
-  margin: 40px 0 0;
+h1,
+h2,
+h3,
+h4 {
+  margin: 12px 0;
 }
 
-.values {
+header {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+header i {
+  font-size: 40px;
+}
+
+.title {
+  /* position: relative; */
+  margin-left: 10px;
+  height: 100%;
+}
+
+.title h1 {
+  margin: 0;
+  margin-top: 20px;
+}
+
+.title h3 {
+  margin: 0;
+  font-weight: 300;
+  color: #444;
+}
+
+main {
+  display: flex;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.total-value {
-  padding: 20px 40px;
+.current-container {
+  background-color: #fff;
+  display: flex;
+  width: 500px;
+  height: 200px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 30px;
+  margin: 8px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  /* max-width: 100%; */
+}
 
-  h3 {
-    margin: 0;
-  }
+.current h2 {
+  color: #777;
+  margin: 0;
+}
+
+.current h1 {
+  font-size: 5rem;
+  margin: 0;
+}
+
+.current p {
+  margin: 0;
+}
+
+.current-container img {
+  width: 150px;
+  height: 150px;
+}
+
+.total-container {
+  display: flex;
+  width: 500px;
+  height: 150px;
+  justify-content: space-between;
+}
+
+.income-container,
+.expense-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  width: 49%;
+  padding: 12px 30px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.category-container {
+  background-color: #fff;
+  display: flex;
+  width: 500px;
+  height: 300px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 30px;
+  margin: 8px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.circle {
+  background: conic-gradient(
+    #fd6a5a 0deg,
+    #fd6a5a 90deg,
+    #fdbb2c 90deg,
+    #fdbb2c 180deg,
+    #51cccc 180deg
+  );
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.category-list {
+  width: 50%;
+  list-style-type: none;
+  padding: 0;
+}
+
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-list li p {
+  margin: 0;
+}
+
+.category-list li strong {
+  margin-left: 50px;
+}
+
+.recent-transactions-container {
+  background-color: #fff;
+  width: 500px;
+  height: 400px;
+  padding: 12px 30px;
+  margin: 8px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.transactions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 8px 50px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.transactions-list.recent .transaction i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.transactions-list.recent .transaction i:first-of-type {
+  left: 0;
+}
+
+.transactions-list.recent .transaction i:last-of-type {
+  right: 0;
+}
+
+.info p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.transactions {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.transactions-container {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  max-width: 100%;
+  max-height: 666px;
+  padding: 12px 30px;
+  margin: 8px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+.transactions-list.all {
+  padding: 4px 0;
+}
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transaction-label {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.transaction-label i {
+  font-size: 30px;
+  margin: 0 24px;
+  position: relative;
+}
+
+.transaction-label .info {
+  text-align: left;
+}
+
+.transaction-label .info p {
+  font-size: 20px;
+}
+
+.transaction-date {
+  font-size: 20px;
+}
+
+.transactions-list.all .transaction {
+  padding: 4px 0;
+}
+
+.transactions-input-container {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  max-width: 100%;
+  height: 400px;
+  padding: 12px 30px;
+  margin: 8px;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  background-color: #fff;
+  color: #3571df;
+  border: 1px solid #3571df;
+  padding: 8px 16px;
+  border-radius: 6px;
 }
 
 #category-total-value {
@@ -44,34 +304,30 @@ h1 {
   list-style: none;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-}
-
-.container-list {
-  width: 40%;
-}
-
-.container-input {
-  width: 40%;
-  margin-left: 40px;
-}
-
 .form-item {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-item input {
+  padding: 8px 16px;
+  border: 1px solid #aaaaaa;
+  border-radius: 6px;
 }
 
 .form-item label {
   width: 80px;
-  margin-right: 10px;
 }
 
-#category-tags {
+.announce {
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+/* Maintenance */
+/* #category-tags {
   flex-wrap: wrap;
   display: flex;
 }
@@ -90,12 +346,12 @@ h1 {
     background-color 0.2s ease,
     transform 0.1s ease;
 
-  &[data-type="income"] {
+  &[data-type='income'] {
     --tag-bg: #7eb6b8;
     --tag-bg-hover: #3d7d85;
   }
 
-  &[data-type="expense"] {
+  &[data-type='expense'] {
     --tag-bg: #f3a69f;
     --tag-bg-hover: #ee847b;
   }
@@ -152,4 +408,4 @@ h1 {
   .total-value {
     padding: 20px 20px;
   }
-}
+} */
