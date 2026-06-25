@@ -21,7 +21,7 @@
 
     <main>
       <section class="summary">
-        <div class="current-container">
+        <div class="current-container card">
           <div class="current">
             <h2>Current Balance</h2>
             <h1 id="current-balance">10000</h1>
@@ -33,7 +33,7 @@
           />
         </div>
         <div class="total-container">
-          <div class="income-container">
+          <div class="income-container card">
             <i class="fa-solid fa-arrow-up"></i>
             <div class="income">
               <h4>Total Income</h4>
@@ -42,7 +42,7 @@
             </div>
           </div>
 
-          <div class="expense-container">
+          <div class="expense-container card">
             <i class="fa-solid fa-arrow-down"></i>
             <div class="expense">
               <h4>Total Expense:</h4>
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="category-container">
+        <div class="category-container card">
           <div class="current">
             <h3>Expenses by Category</h3>
             <div class="chart">
@@ -88,9 +88,9 @@
           </ul>
         </div>
 
-        <div class="recent-transactions-container">
+        <div class="recent-transactions-container card">
           <h4>Recent Transactions</h4>
-          <ul class="transactions-list recent">
+          <ul class="transactions-list recent" id="recent-list">
             <li class="transaction">
               <i class="fa-solid fa-burger"></i>
               <div class="info">
@@ -141,7 +141,7 @@
       </section>
 
       <section class="transactions">
-        <div class="transactions-container">
+        <div class="transactions-container card">
           <div class="transactions-header">
             <h3>All Transactions</h3>
             <div class="buttons">
@@ -150,7 +150,7 @@
               <button class="btn">Expense</button>
             </div>
           </div>
-          <ul class="transactions-list all">
+          <ul class="transactions-list all" id="transaction-list">
             <li class="transaction">
               <div class="transaction-label">
                 <p class="transaction-date">MAY<br />25</p>
@@ -171,10 +171,10 @@
                 <div class="info">
                   <p><strong>Food</strong> Lunch</p>
                   <small>Monthly salary</small>
+
+                  <strong>$500</strong>
                 </div>
               </div>
-
-              <strong>$500</strong>
               <i class="fas fa-trash"></i>
             </li>
             <li class="transaction">
@@ -231,7 +231,7 @@
             </li>
           </ul>
         </div>
-        <div class="transactions-input-container">
+        <div class="transactions-input-container card">
           <h3>Add Transaction</h3>
           <p class="announce">Please input your income and expenses</p>
           <form id="transaction-form">

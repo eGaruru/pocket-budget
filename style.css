@@ -55,6 +55,14 @@ main {
   display: flex;
 }
 
+/* General style*/
+.card {
+  background-color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Summary */
 .summary {
   display: flex;
   flex-direction: column;
@@ -62,7 +70,6 @@ main {
 }
 
 .current-container {
-  background-color: #fff;
   display: flex;
   width: 500px;
   height: 200px;
@@ -70,8 +77,6 @@ main {
   justify-content: space-between;
   padding: 12px 30px;
   margin: 8px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   /* max-width: 100%; */
 }
 
@@ -106,15 +111,11 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
   width: 49%;
   padding: 12px 30px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .category-container {
-  background-color: #fff;
   display: flex;
   width: 500px;
   height: 300px;
@@ -122,8 +123,6 @@ main {
   justify-content: space-between;
   padding: 12px 30px;
   margin: 8px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .chart {
@@ -169,13 +168,10 @@ main {
 }
 
 .recent-transactions-container {
-  background-color: #fff;
   width: 500px;
   height: 400px;
   padding: 12px 30px;
   margin: 8px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .transactions-list {
@@ -196,15 +192,24 @@ main {
 .transactions-list.recent .transaction i {
   position: absolute;
   top: 50%;
+  left: 0;
   transform: translateY(-50%);
 }
 
-.transactions-list.recent .transaction i:first-of-type {
-  left: 0;
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  color: #9d9d9d;
+  transition: color 0.1s ease-in-out;
 }
 
-.transactions-list.recent .transaction i:last-of-type {
-  right: 0;
+.delete-btn:hover {
+  color: #1d1d1d;
 }
 
 .info p {
@@ -219,8 +224,8 @@ main {
   /* align-items: center; */
 }
 
+/* Transactions */
 .transactions-container {
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -228,8 +233,6 @@ main {
   max-height: 666px;
   padding: 12px 30px;
   margin: 8px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
 }
 
@@ -256,11 +259,15 @@ main {
 }
 
 .transaction-label .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   text-align: left;
 }
 
 .transaction-label .info p {
   font-size: 20px;
+  margin-right: 20px;
 }
 
 .transaction-date {
@@ -272,7 +279,6 @@ main {
 }
 
 .transactions-input-container {
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -280,8 +286,6 @@ main {
   height: 400px;
   padding: 12px 30px;
   margin: 8px;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn {
@@ -290,18 +294,6 @@ main {
   border: 1px solid #3571df;
   padding: 8px 16px;
   border-radius: 6px;
-}
-
-#category-total-value {
-  height: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  margin: 0;
-  padding: 10px;
-  list-style: none;
 }
 
 .form-item {
@@ -385,20 +377,9 @@ main {
   align-items: center;
 }
 
-.delete-btn {
-  cursor: pointer;
-  border: 0;
-  background-color: transparent;
-  margin-left: 10px;
-  color: #9d9d9d;
-  transition: color 0.1s ease-in-out;
-}
+*/
 
-.delete-btn:hover {
-  color: #1d1d1d;
-}
-
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   #category-total-value {
     height: 100%;
   }

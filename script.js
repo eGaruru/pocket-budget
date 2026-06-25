@@ -1,64 +1,79 @@
-"use strict";
+'use strict';
 
 // --- Constants & State ---
-const STORAGE_KEY_TRANSACTIONS = "pocket-budget-transactions";
+const STORAGE_KEY_TRANSACTIONS = 'pocket-budget-transactions';
 
 const categories = {
-  salary: { label: "Salary", type: "income", icon: "💼" },
-  bonus: { label: "Bonus", type: "income", icon: "💰" },
-  gift: { label: "Gift", type: "income", icon: "🎁" },
-  food: { label: "Food", type: "expense", icon: "🍔" },
-  utilities: { label: "Utilities", type: "expense", icon: "💡" },
-  transport: { label: "Transport", type: "expense", icon: "🚃" },
-  entertainment: { label: "Entertainment", type: "expense", icon: "🎥" },
-  housing: { label: "Housing", type: "expense", icon: "🏠" },
+  salary: { label: 'Salary', type: 'income', icon: '💼' },
+  bonus: { label: 'Bonus', type: 'income', icon: '💰' },
+  gift: { label: 'Gift', type: 'income', icon: '🎁' },
+  food: { label: 'Food', type: 'expense', icon: '🍔' },
+  utilities: { label: 'Utilities', type: 'expense', icon: '💡' },
+  transport: { label: 'Transport', type: 'expense', icon: '🚃' },
+  entertainment: { label: 'Entertainment', type: 'expense', icon: '🎥' },
+  housing: { label: 'Housing', type: 'expense', icon: '🏠' },
 };
 
 // initial data
 let transactions = [
   {
     id: 1,
-    category: "food",
+    category: 'food',
     amount: -1200,
-    date: "2024-03-01",
-    note: "Lunch",
+    date: '2024-03-01',
+    note: 'Lunch',
   },
   {
     id: 2,
-    category: "salary",
+    category: 'salary',
     amount: 300000,
-    date: "2024-03-25",
-    note: "Monthly salary",
+    date: '2024-03-25',
+    note: 'Monthly salary',
   },
   {
     id: 3,
-    category: "utilities",
+    category: 'utilities',
     amount: -15000,
-    date: "2024-03-05",
-    note: "Electricity",
+    date: '2024-03-05',
+    note: 'Electricity',
   },
   {
     id: 4,
-    category: "food",
+    category: 'food',
     amount: -4500,
-    date: "2024-03-10",
-    note: "Dinner",
+    date: '2024-03-10',
+    note: 'Dinner',
   },
-  { id: 5, category: "transport", amount: -2000, date: "2024-03-12", note: "" },
+  { id: 5, category: 'transport', amount: -2000, date: '2024-03-12', note: '' },
   {
     id: 6,
-    category: "salary",
+    category: 'salary',
     amount: 5000,
-    date: "2024-03-15",
-    note: "Bonus",
+    date: '2024-03-15',
+    note: 'Bonus',
   },
 ];
 
-// Format into currency
-const formatter = new Intl.NumberFormat("ja-JP", {
-  style: "currency",
-  currency: "JPY",
+// Format
+const currencyFormatter = new Intl.NumberFormat('ja-JP', {
+  style: 'currency',
+  currency: 'JPY',
 });
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const formatter = {
+  currency(amount) {
+    return currencyFormatter.format(amount);
+  },
+  date(date) {
+    return dateFormatter.format(date);
+  },
+};
 
 // --- Logic Functions ---
 // Summary
@@ -102,8 +117,8 @@ function generateId() {
 function getCurrentDate() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0"); // month: 0 ~ 11
-  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // month: 0 ~ 11
+  const day = String(now.getDate()).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
 }
@@ -113,38 +128,38 @@ function createTransaction(category, amount, note) {
   const categoryData = categories[category];
 
   if (!categoryData) {
-    console.error("Invalid category is selected");
+    console.error('Invalid category is selected');
     return;
   }
 
   return {
     id: generateId(),
     category,
-    amount: categoryData.type === "income" ? amount : -amount,
+    amount: categoryData.type === 'income' ? amount : -amount,
     date: getCurrentDate(),
     note,
   };
 }
 
 // Transaction listitem
-function createListItem({ category, note, amount }) {
-  const categoryData = categories[category];
+// function createListItem({ category, note, amount }) {
+//   const categoryData = categories[category];
 
-  const label = categoryData?.label ?? category;
-  const icon = categoryData?.icon ? `${categoryData.icon} ` : "";
+//   const label = categoryData?.label ?? category;
+//   const icon = categoryData?.icon ? `${categoryData.icon} ` : '';
 
-  return `[${icon}${label}] ${note || "No note"}: ${formatter.format(amount)}`;
-}
+//   return `[${icon}${label}] ${note || 'No note'}: ${formatter.format(amount)}`;
+// }
 
 // Validation
 function validateCategory(category) {
   if (!category) {
-    alert("Please select a category.");
+    alert('Please select a category.');
     return null;
   }
 
   if (!categories[category]) {
-    console.error("Invalid category");
+    console.error('Invalid category');
     return null;
   }
 
@@ -155,12 +170,12 @@ function validateAmount(amount) {
   let result = Number(amount);
 
   if (isNaN(result)) {
-    alert("Please enter a valid number.");
+    alert('Please enter a valid number.');
     return null;
   }
 
   if (result <= 0) {
-    alert("Please enter a positive number.");
+    alert('Please enter a positive number.');
     return null;
   }
 
@@ -168,37 +183,40 @@ function validateAmount(amount) {
 }
 
 // ---  UI / Event Handlers ---
-const container = document.querySelector(".container");
-const containerInput = document.querySelector(".container-input");
-const incomeEl = document.getElementById("income");
-const expenseEl = document.getElementById("expense");
-const categoryTotalsEl = document.getElementById("category-total-value");
-const transactionListEL = document.getElementById("transaction-list");
 
-const form = document.getElementById("transaction-form");
-const categoryTagsEl = document.getElementById("category-tags");
-const noteInput = document.getElementById("note-input");
-const amountInput = document.getElementById("amount-input");
+const currentBalanceEl = document.getElementById('current-balance');
+const container = document.querySelector('.container');
+const containerInput = document.querySelector('.container-input');
+const incomeEl = document.getElementById('income');
+const expenseEl = document.getElementById('expense');
+const categoryTotalsEl = document.getElementById('category-total-value');
+const recentListEL = document.getElementById('recent-list');
+const transactionListEL = document.getElementById('transaction-list');
 
-categoryTagsEl.addEventListener("click", (e) => {
+const form = document.getElementById('transaction-form');
+const categoryTagsEl = document.getElementById('category-tags');
+const noteInput = document.getElementById('note-input');
+const amountInput = document.getElementById('amount-input');
+
+categoryTagsEl.addEventListener('click', (e) => {
   const target = e.target;
 
-  if (!target.classList.contains("tag")) return;
+  if (!target.classList.contains('tag')) return;
 
   categoryTagsEl
-    .querySelectorAll(".tag")
-    .forEach((tag) => tag.classList.remove("is-selected"));
+    .querySelectorAll('.tag')
+    .forEach((tag) => tag.classList.remove('is-selected'));
 
-  target.classList.add("is-selected");
+  target.classList.add('is-selected');
 });
 
-form.addEventListener("submit", (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   let amount = validateAmount(amountInput.value);
   if (!amount) return;
 
-  const selectedCategoryEl = categoryTagsEl.querySelector(".tag.is-selected");
+  const selectedCategoryEl = categoryTagsEl.querySelector('.tag.is-selected');
   const category = validateCategory(selectedCategoryEl?.dataset.category);
   if (!category) return;
 
@@ -222,70 +240,114 @@ function setTransactions(newTransactions) {
 function renderTotals(transactions) {
   const { income, expense } = calculateTotals(transactions);
 
-  incomeEl.textContent = formatter.format(income);
-  expenseEl.textContent = formatter.format(expense);
+  currentBalanceEl.textContent = formatter.currency(income - expense);
+  incomeEl.textContent = formatter.currency(income);
+  expenseEl.textContent = formatter.currency(expense);
 
-  const categoryAggregate = calculateCategoryAggregate(transactions);
+  // const categoryAggregate = calculateCategoryAggregate(transactions);
 
-  categoryTotalsEl.replaceChildren(); // or categoryTotalsEl.innerHTML = ""
+  // categoryTotalsEl.replaceChildren(); // or categoryTotalsEl.innerHTML = ""
 
-  Object.entries(categoryAggregate).forEach(([key, value]) => {
-    const listItem = document.createElement("li");
+  // Object.entries(categoryAggregate).forEach(([key, value]) => {
+  //   const listItem = document.createElement('li');
 
-    const { label, icon } = categories[key];
-    listItem.textContent = `${icon} ${label}: ${formatter.format(value)}`;
+  //   const { label, icon } = categories[key];
+  //   listItem.textContent = `${icon} ${label}: ${formatter.format(value)}`;
 
-    categoryTotalsEl.appendChild(listItem);
-  });
+  //   categoryTotalsEl.appendChild(listItem);
 }
 
 function renderCategoryTags(categories) {
   categoryTagsEl.replaceChildren();
   Object.entries(categories).forEach(([key, { label, type }], i) => {
-    const tag = document.createElement("span");
-    tag.classList.add("tag");
+    const tag = document.createElement('span');
+    tag.classList.add('tag');
     tag.textContent = label;
     tag.dataset.category = key;
     tag.dataset.type = type;
 
-    if (i === 0) tag.classList.add("is-selected");
+    if (i === 0) tag.classList.add('is-selected');
 
     categoryTagsEl.appendChild(tag);
   });
 }
 
 function renderTransactionList(transactions) {
+  recentListEL.replaceChildren();
   transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
 
-  transactions.forEach((transaction) => {
-    const listItem = document.createElement("li");
-    listItem.classList.add("list-item");
+  transactions.forEach((transaction, index) => {
+    if (index < 5) {
+      recentListEL.appendChild(createRecentTransactionEl(transaction));
+    }
 
-    const textSpan = document.createElement("span");
-    textSpan.textContent = createListItem(transaction);
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-    deleteBtn.classList.add("delete-btn");
-
-    deleteBtn.addEventListener("click", () => {
-      deleteTransaction(transaction.id);
-    });
-
-    listItem.appendChild(textSpan);
-    listItem.appendChild(deleteBtn);
-
-    transactionListEL.appendChild(listItem);
+    transactionListEL.appendChild(createTransactionEl(transaction));
   });
 }
 
+function createRecentTransactionEl(transaction) {
+  const { category, note, amount } = transaction;
+  const date = new Date(transaction.date);
+
+  const transactionEl = document.createElement('li');
+  transactionEl.classList.add('transaction');
+  transactionEl.innerHTML = `
+  <i class="fa-solid fa-burger"></i>
+    <div class="info">
+      <p><strong>${category}</strong> ${note}</p>
+      <small>${formatter.date(date)}</small>
+    </div>
+    <strong>${formatter.currency(amount)}</strong>
+  <button class="delete-btn">
+    <i class="fas fa-trash"></i>
+  </button>
+  `;
+
+  const deleteBtn = transactionEl.querySelector('button');
+  deleteBtn.addEventListener('click', () => {
+    deleteTransaction(transaction.id);
+  });
+
+  return transactionEl;
+}
+
+function createTransactionEl(transaction) {
+  const { category, note, amount } = transaction;
+  const date = new Date(transaction.date);
+
+  const transactionEl = document.createElement('li');
+  transactionEl.classList.add('transaction');
+  transactionEl.innerHTML = `
+  <div class="transaction-label">
+    <p class="transaction-date">MAY<br />25</p>
+    <i class="fa-solid fa-burger"></i>
+    <div class="info">
+      <p><strong>${category}</strong><br>${note}</p>
+       <strong>${formatter.currency(amount)}</strong>
+    </div>
+  </div>
+
+ 
+  <button class="delete-btn">
+    <i class="fas fa-trash"></i>
+  </button>
+  `;
+
+  const deleteBtn = transactionEl.querySelector('button');
+  deleteBtn.addEventListener('click', () => {
+    deleteTransaction(transaction.id);
+  });
+
+  return transactionEl;
+}
+
 function clearInputs() {
-  noteInput.value = "";
-  amountInput.value = "";
+  noteInput.value = '';
+  amountInput.value = '';
 }
 
 function deleteTransaction(deleteId) {
-  if (!confirm("Are you sure you want to delete this transaction?")) return;
+  if (!confirm('Are you sure you want to delete this transaction?')) return;
   const filteredTransactions = transactions.filter(
     (transaction) => transaction.id !== deleteId,
   );
@@ -303,7 +365,7 @@ function loadTransactions() {
     if (!Array.isArray(parsed)) return [];
     return parsed;
   } catch {
-    console.error("Failed to parse transactions");
+    console.error('Failed to parse transactions');
     return [];
   }
 }
@@ -316,3 +378,10 @@ const localData = loadTransactions();
 const initialTransactions = localData.length > 0 ? localData : transactions;
 
 setTransactions(initialTransactions);
+
+// Source - https://stackoverflow.com/a/23202637
+// Posted by August Miller, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-02-16, License - CC BY-SA 4.0
+function scale(number, inMin, inMax, outMin, outMax) {
+  return ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+}
