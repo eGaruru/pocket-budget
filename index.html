@@ -25,7 +25,10 @@
           <div class="current">
             <h2>Current Balance</h2>
             <h1 id="current-balance">10000</h1>
-            <p>as of May 25, 2024</p>
+            <div class="current-date">
+              <i class="fas fa-calendar"></i>
+              <p>as of May 25, 2024</p>
+            </div>
           </div>
           <img
             src="./img/savings_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
@@ -34,7 +37,9 @@
         </div>
         <div class="total-container">
           <div class="income-container card">
-            <i class="fa-solid fa-arrow-up"></i>
+            <div class="icon-circle">
+              <i class="fa-solid fa-arrow-up income-arrow"></i>
+            </div>
             <div class="income">
               <h4>Total Income</h4>
               <h2 id="income">10000</h2>
@@ -43,9 +48,12 @@
           </div>
 
           <div class="expense-container card">
-            <i class="fa-solid fa-arrow-down"></i>
+            <div class="icon-circle">
+              <i class="fa-solid fa-arrow-down expense-arrow"></i>
+            </div>
+
             <div class="expense">
-              <h4>Total Expense:</h4>
+              <h4>Total Expense</h4>
               <h2 id="expense">10000</h2>
               <p>this month</p>
             </div>
@@ -56,7 +64,7 @@
           <div class="current">
             <h3>Expenses by Category</h3>
             <div class="chart">
-              <div class="circle"></div>
+              <div id="chart-circle" class="chart-circle"></div>
             </div>
           </div>
           <ul class="category-list">
@@ -151,7 +159,7 @@
             </div>
           </div>
           <ul class="transactions-list all" id="transaction-list">
-            <li class="transaction">
+            <li class="transaction transaction-big">
               <div class="transaction-label">
                 <p class="transaction-date">MAY<br />25</p>
                 <i class="fa-solid fa-burger"></i>

@@ -4,14 +4,25 @@
 const STORAGE_KEY_TRANSACTIONS = 'pocket-budget-transactions';
 
 const categories = {
-  salary: { label: 'Salary', type: 'income', icon: '💼' },
-  bonus: { label: 'Bonus', type: 'income', icon: '💰' },
-  gift: { label: 'Gift', type: 'income', icon: '🎁' },
-  food: { label: 'Food', type: 'expense', icon: '🍔' },
-  utilities: { label: 'Utilities', type: 'expense', icon: '💡' },
-  transport: { label: 'Transport', type: 'expense', icon: '🚃' },
-  entertainment: { label: 'Entertainment', type: 'expense', icon: '🎥' },
-  housing: { label: 'Housing', type: 'expense', icon: '🏠' },
+  salary: { label: 'Salary', icon: '💼', color: '#5AA9E6' },
+  gift: { label: 'Gift', icon: '🎁', color: '#F78CC6' },
+  food: { label: 'Food', icon: '🍔', color: '#FD695A' },
+  utilities: {
+    label: 'Utilities',
+    icon: '💡',
+    color: '#FFC857',
+  },
+  transport: {
+    label: 'Transport',
+    icon: '🚃',
+    color: '#4DB6E5',
+  },
+  entertainment: {
+    label: 'Entertainment',
+    icon: '🎥',
+    color: '#8D7CF7',
+  },
+  housing: { label: 'Housing', icon: '🏠', color: '#5BCB95' },
 };
 
 // initial data
@@ -189,7 +200,7 @@ const container = document.querySelector('.container');
 const containerInput = document.querySelector('.container-input');
 const incomeEl = document.getElementById('income');
 const expenseEl = document.getElementById('expense');
-const categoryTotalsEl = document.getElementById('category-total-value');
+const categoryChart = document.getElementById('chart-circle');
 const recentListEL = document.getElementById('recent-list');
 const transactionListEL = document.getElementById('transaction-list');
 
@@ -233,8 +244,9 @@ function setTransactions(newTransactions) {
   saveTransactions(newTransactions);
 
   renderTotals(newTransactions);
+  renderCategory(newTransactions);
   renderTransactionList(newTransactions);
-  renderCategoryTags(categories);
+  // renderCategoryTags(categories);
 }
 
 function renderTotals(transactions) {
@@ -257,20 +269,45 @@ function renderTotals(transactions) {
   //   categoryTotalsEl.appendChild(listItem);
 }
 
-function renderCategoryTags(categories) {
-  categoryTagsEl.replaceChildren();
-  Object.entries(categories).forEach(([key, { label, type }], i) => {
-    const tag = document.createElement('span');
-    tag.classList.add('tag');
-    tag.textContent = label;
-    tag.dataset.category = key;
-    tag.dataset.type = type;
+function renderCategory(transactions) {
+  const { expense } = calculateTotals(transactions);
+  const aggregate = calculateCategoryAggregate(transactions);
 
-    if (i === 0) tag.classList.add('is-selected');
-
-    categoryTagsEl.appendChild(tag);
-  });
+  createCategoryChart(expense, aggregate);
 }
+
+function createCategoryChart(expense, aggregate) {
+  let startDeg = 0;
+  const gradients = Object.entries(aggregate).map(([key, value]) => {
+    const color = categories[key].color;
+    const angle = (value / expense) * 360;
+
+    const result = `${color} ${startDeg}deg ${startDeg + angle}deg`;
+
+    startDeg += angle;
+
+    return result;
+  });
+
+  categoryChart.style.background = `
+  conic-gradient(${gradients.join(',')})
+  `;
+}
+
+// function renderCategoryTags(categories) {
+//   categoryTagsEl.replaceChildren();
+//   Object.entries(categories).forEach(([key, { label, type }], i) => {
+//     const tag = document.createElement('span');
+//     tag.classList.add('tag');
+//     tag.textContent = label;
+//     tag.dataset.category = key;
+//     tag.dataset.type = type;
+
+//     if (i === 0) tag.classList.add('is-selected');
+
+//     categoryTagsEl.appendChild(tag);
+//   });
+// }
 
 function renderTransactionList(transactions) {
   recentListEL.replaceChildren();
@@ -316,7 +353,7 @@ function createTransactionEl(transaction) {
   const date = new Date(transaction.date);
 
   const transactionEl = document.createElement('li');
-  transactionEl.classList.add('transaction');
+  transactionEl.classList.add('transaction', 'transaction-big');
   transactionEl.innerHTML = `
   <div class="transaction-label">
     <p class="transaction-date">MAY<br />25</p>
@@ -378,10 +415,3 @@ const localData = loadTransactions();
 const initialTransactions = localData.length > 0 ? localData : transactions;
 
 setTransactions(initialTransactions);
-
-// Source - https://stackoverflow.com/a/23202637
-// Posted by August Miller, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-02-16, License - CC BY-SA 4.0
-function scale(number, inMin, inMax, outMin, outMax) {
-  return ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
-}
