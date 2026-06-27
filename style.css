@@ -5,7 +5,7 @@
 }
 
 body {
-  background: linear-gradient(#e3f8ff, #beedff, #e3f8ff);
+  background: url('./img/bg.png') no-repeat center center/cover;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
@@ -60,6 +60,7 @@ main {
   background-color: #fff;
   border-radius: 18px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 12px 24px;
 }
 
 /* Summary */
@@ -71,11 +72,10 @@ main {
 
 .current-container {
   display: flex;
-  width: 500px;
+  width: 550px;
   height: 200px;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 30px;
   margin: 8px;
   /* max-width: 100%; */
 }
@@ -113,7 +113,7 @@ main {
 
 .total-container {
   display: flex;
-  width: 500px;
+  width: 550px;
   height: 150px;
   justify-content: space-between;
 }
@@ -124,12 +124,10 @@ main {
   align-items: center;
   justify-content: center;
   width: 49%;
-  padding: 12px;
 }
 
 .icon-circle {
   position: relative;
-  background-color: #1d1d1d;
   height: 70px;
   width: 70px;
   border-radius: 50%;
@@ -149,26 +147,33 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 30px;
+  font-size: 40px;
 }
 
-.income-container .icon-circle i,
-.income h2 {
+.income-arrow {
   color: #08a960;
 }
 
-.expense-container .icon-circle i,
+.expense-arrow {
+  color: #f34843;
+}
+
+.income h2 {
+  color: #08a960;
+  font-size: 28px;
+}
+
 .expense h2 {
   color: #f34843;
+  font-size: 28px;
 }
 
 .category-container {
   display: flex;
-  width: 500px;
+  width: 550px;
   height: 300px;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 30px;
   margin: 8px;
 }
 
@@ -195,15 +200,17 @@ main {
 }
 
 .category-list {
-  width: 50%;
+  width: 100%;
   list-style-type: none;
   padding: 0;
 }
 
 .category-list li {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 1fr 50px;
   align-items: center;
+  gap: 6px;
+  padding-left: 20px;
 }
 
 .category-list li p {
@@ -211,13 +218,18 @@ main {
 }
 
 .category-list li strong {
-  margin-left: 50px;
+  text-align: right;
+}
+
+.category-list li p:last-of-type {
+  width: 40px;
+  margin: 0;
+  text-align: right;
 }
 
 .recent-transactions-container {
-  width: 500px;
+  width: 550px;
   height: 400px;
-  padding: 12px 30px;
   margin: 8px;
 }
 
@@ -236,12 +248,18 @@ main {
   border-top: 1px solid #e0e0e0;
 }
 
+.transaction:last-of-type {
+  border-bottom: 1px solid #e0e0e0;
+}
+
 .transaction.transaction-big {
   padding: 0px 8px 0px 50px;
 }
 
-.transactions-list.recent .transaction i {
+.transactions-list.recent .transaction-icon {
   position: absolute;
+  font-size: 30px;
+  margin: 0;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
@@ -279,10 +297,9 @@ main {
 .transactions-container {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 550px;
   max-width: 100%;
   max-height: 666px;
-  padding: 12px 30px;
   margin: 8px;
   overflow-y: auto;
 }
@@ -302,13 +319,22 @@ main {
   align-items: center;
   text-align: center;
   width: 100%;
-  padding-right: 50px;
 }
 
-.transaction-label i {
-  font-size: 30px;
+.transaction-icon-circle {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
   margin: 0 24px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-icon-circle .transaction-icon {
+  font-size: 34px;
+  margin: 0;
+  line-height: 1.1;
 }
 
 .transaction-label .info {
@@ -316,7 +342,7 @@ main {
   align-items: center;
   justify-content: space-between;
   text-align: left;
-  width: 100%;
+  width: 60%;
 }
 
 .transaction-label .info p {
@@ -335,10 +361,9 @@ main {
 .transactions-input-container {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 550px;
   max-width: 100%;
   height: 400px;
-  padding: 12px 30px;
   margin: 8px;
 }
 
@@ -377,7 +402,7 @@ main {
   flex-wrap: wrap;
   display: flex;
 }
-
+*/
 .tag {
   cursor: pointer;
   color: #fff;
@@ -411,6 +436,7 @@ main {
     transform: scale(0.98);
   }
 }
+/*
 
 .form-item--amount {
   width: 100%;

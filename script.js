@@ -201,6 +201,7 @@ const containerInput = document.querySelector('.container-input');
 const incomeEl = document.getElementById('income');
 const expenseEl = document.getElementById('expense');
 const categoryChart = document.getElementById('chart-circle');
+const categoryList = document.getElementById('category-list');
 const recentListEL = document.getElementById('recent-list');
 const transactionListEL = document.getElementById('transaction-list');
 
@@ -274,6 +275,7 @@ function renderCategory(transactions) {
   const aggregate = calculateCategoryAggregate(transactions);
 
   createCategoryChart(expense, aggregate);
+  createCategoryList(expense, aggregate);
 }
 
 function createCategoryChart(expense, aggregate) {
@@ -292,6 +294,38 @@ function createCategoryChart(expense, aggregate) {
   categoryChart.style.background = `
   conic-gradient(${gradients.join(',')})
   `;
+}
+
+function createCategoryList(expense, aggregate) {
+  const exclusiveList = [];
+  Object.entries(categories).forEach(([key, value]) => {
+    const item = document.createElement('li');
+    const { label, icon, color } = value;
+
+    if (aggregate[key]) {
+      const amount = aggregate[key];
+      const percent = Math.trunc((amount / expense) * 100);
+      item.innerHTML = `
+      <p class="category-name">${icon} ${label}</p>
+      <strong class="category-amount">${formatter.currency(amount)}</strong>
+      <p class="category-percent">${percent}%</p>
+      `;
+
+      categoryList.appendChild(item);
+    } else {
+      item.innerHTML = `
+      <p class="category-name">${icon} ${label}</p>
+      <strong class="category-amount">${formatter.currency(0)}</strong>
+      <p class="category-percent">0%</p>
+      `;
+
+      exclusiveList.push(item);
+    }
+  });
+
+  if (exclusiveList.length > 0) {
+    exclusiveList.forEach((item) => categoryList.appendChild(item));
+  }
 }
 
 // function renderCategoryTags(categories) {
@@ -329,7 +363,7 @@ function createRecentTransactionEl(transaction) {
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction');
   transactionEl.innerHTML = `
-  <i class="fa-solid fa-burger"></i>
+  <p class="transaction-icon">${categories[category].icon}</p>
     <div class="info">
       <p><strong>${category}</strong> ${note}</p>
       <small>${formatter.date(date)}</small>
@@ -351,20 +385,22 @@ function createRecentTransactionEl(transaction) {
 function createTransactionEl(transaction) {
   const { category, note, amount } = transaction;
   const date = new Date(transaction.date);
+  const { color, icon } = categories[category];
 
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction', 'transaction-big');
   transactionEl.innerHTML = `
   <div class="transaction-label">
     <p class="transaction-date">MAY<br />25</p>
-    <i class="fa-solid fa-burger"></i>
+    <div class="transaction-icon-circle" style="background-color: ${hexToRgba(color, 0.4)}">
+      <p class="transaction-icon">${icon}</p>
+    </div>
     <div class="info">
       <p><strong>${category}</strong><br>${note}</p>
-       <strong>${formatter.currency(amount)}</strong>
+      <strong>${formatter.currency(amount)}</strong>
     </div>
   </div>
 
- 
   <button class="delete-btn">
     <i class="fas fa-trash"></i>
   </button>
@@ -376,6 +412,15 @@ function createTransactionEl(transaction) {
   });
 
   return transactionEl;
+}
+
+// Reference: https://stackoverflow.com/posts/28056903/revisions
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function clearInputs() {
