@@ -146,32 +146,17 @@ function createTransaction(category, amount, note) {
   return {
     id: generateId(),
     category,
-    amount: categoryData.type === 'income' ? amount : -amount,
+    amount: amount,
     date: getCurrentDate(),
     note,
   };
 }
-
-// Transaction listitem
-// function createListItem({ category, note, amount }) {
-//   const categoryData = categories[category];
-
-//   const label = categoryData?.label ?? category;
-//   const icon = categoryData?.icon ? `${categoryData.icon} ` : '';
-
-//   return `[${icon}${label}] ${note || 'No note'}: ${formatter.format(amount)}`;
-// }
 
 function validateAmount(amount) {
   let result = Number(amount);
 
   if (isNaN(result)) {
     alert('Please enter a valid number.');
-    return null;
-  }
-
-  if (result <= 0) {
-    alert('Please enter a positive number.');
     return null;
   }
 
@@ -221,7 +206,6 @@ function setTransactions(newTransactions) {
   renderTotals(newTransactions);
   renderCategory(newTransactions);
   renderTransactionList(newTransactions);
-  // renderCategoryTags(categories);
 }
 
 function renderTotals(transactions) {
@@ -230,18 +214,6 @@ function renderTotals(transactions) {
   currentBalanceEl.textContent = formatter.currency(income - expense);
   incomeEl.textContent = formatter.currency(income);
   expenseEl.textContent = formatter.currency(expense);
-
-  // const categoryAggregate = calculateCategoryAggregate(transactions);
-
-  // categoryTotalsEl.replaceChildren(); // or categoryTotalsEl.innerHTML = ""
-
-  // Object.entries(categoryAggregate).forEach(([key, value]) => {
-  //   const listItem = document.createElement('li');
-
-  //   const { label, icon } = categories[key];
-  //   listItem.textContent = `${icon} ${label}: ${formatter.format(value)}`;
-
-  //   categoryTotalsEl.appendChild(listItem);
 }
 
 function renderCategory(transactions) {
@@ -302,21 +274,6 @@ function createCategoryList(expense, aggregate) {
     exclusiveList.forEach((item) => categoryList.appendChild(item));
   }
 }
-
-// function renderCategoryTags(categories) {
-//   categoryTagsEl.replaceChildren();
-//   Object.entries(categories).forEach(([key, { label, type }], i) => {
-//     const tag = document.createElement('span');
-//     tag.classList.add('tag');
-//     tag.textContent = label;
-//     tag.dataset.category = key;
-//     tag.dataset.type = type;
-
-//     if (i === 0) tag.classList.add('is-selected');
-
-//     categoryTagsEl.appendChild(tag);
-//   });
-// }
 
 function renderTransactionList(transactions) {
   recentListEL.replaceChildren();
