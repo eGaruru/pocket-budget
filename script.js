@@ -162,21 +162,6 @@ function createTransaction(category, amount, note) {
 //   return `[${icon}${label}] ${note || 'No note'}: ${formatter.format(amount)}`;
 // }
 
-// Validation
-function validateCategory(category) {
-  if (!category) {
-    alert('Please select a category.');
-    return null;
-  }
-
-  if (!categories[category]) {
-    console.error('Invalid category');
-    return null;
-  }
-
-  return category;
-}
-
 function validateAmount(amount) {
   let result = Number(amount);
 
@@ -206,33 +191,22 @@ const recentListEL = document.getElementById('recent-list');
 const transactionListEL = document.getElementById('transaction-list');
 
 const form = document.getElementById('transaction-form');
-const categoryTagsEl = document.getElementById('category-tags');
+const categorySelect = document.getElementById('category-select');
 const noteInput = document.getElementById('note-input');
 const amountInput = document.getElementById('amount-input');
-
-categoryTagsEl.addEventListener('click', (e) => {
-  const target = e.target;
-
-  if (!target.classList.contains('tag')) return;
-
-  categoryTagsEl
-    .querySelectorAll('.tag')
-    .forEach((tag) => tag.classList.remove('is-selected'));
-
-  target.classList.add('is-selected');
-});
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  let amount = validateAmount(amountInput.value);
+  const amount = validateAmount(amountInput.value);
   if (!amount) return;
 
-  const selectedCategoryEl = categoryTagsEl.querySelector('.tag.is-selected');
-  const category = validateCategory(selectedCategoryEl?.dataset.category);
-  if (!category) return;
+  const note = noteInput.value;
+  if (!note.trim()) return;
 
-  const newTransaction = createTransaction(category, amount, noteInput.value);
+  const selectedCategory = categorySelect.value;
+
+  const newTransaction = createTransaction(selectedCategory, amount, note);
 
   setTransactions([...transactions, newTransaction]);
   clearInputs();
@@ -297,6 +271,7 @@ function createCategoryChart(expense, aggregate) {
 }
 
 function createCategoryList(expense, aggregate) {
+  categoryList.replaceChildren();
   const exclusiveList = [];
   Object.entries(categories).forEach(([key, value]) => {
     const item = document.createElement('li');
@@ -308,7 +283,7 @@ function createCategoryList(expense, aggregate) {
       item.innerHTML = `
       <p class="category-name">${icon} ${label}</p>
       <strong class="category-amount">${formatter.currency(amount)}</strong>
-      <p class="category-percent">${percent}%</p>
+      <strong class="category-percent" style="background-color: ${hexToRgba(color, 0.18)}; color: ${color}">${percent}%</strong>
       `;
 
       categoryList.appendChild(item);
@@ -316,7 +291,7 @@ function createCategoryList(expense, aggregate) {
       item.innerHTML = `
       <p class="category-name">${icon} ${label}</p>
       <strong class="category-amount">${formatter.currency(0)}</strong>
-      <p class="category-percent">0%</p>
+      <strong class="category-percent" style="background-color: ${hexToRgba(color, 0.18)}; color: ${color}">0%</strong>
       `;
 
       exclusiveList.push(item);
@@ -358,17 +333,18 @@ function renderTransactionList(transactions) {
 
 function createRecentTransactionEl(transaction) {
   const { category, note, amount } = transaction;
+  const { label, icon } = categories[category];
   const date = new Date(transaction.date);
 
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction');
   transactionEl.innerHTML = `
-  <p class="transaction-icon">${categories[category].icon}</p>
+  <p class="transaction-icon">${icon}</p>
     <div class="info">
-      <p><strong>${category}</strong> ${note}</p>
+      <p><strong>${label}</strong> ${note}</p>
       <small>${formatter.date(date)}</small>
     </div>
-    <strong>${formatter.currency(amount)}</strong>
+    <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
   <button class="delete-btn">
     <i class="fas fa-trash"></i>
   </button>
@@ -385,7 +361,7 @@ function createRecentTransactionEl(transaction) {
 function createTransactionEl(transaction) {
   const { category, note, amount } = transaction;
   const date = new Date(transaction.date);
-  const { color, icon } = categories[category];
+  const { label, color, icon } = categories[category];
 
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction', 'transaction-big');
@@ -396,8 +372,8 @@ function createTransactionEl(transaction) {
       <p class="transaction-icon">${icon}</p>
     </div>
     <div class="info">
-      <p><strong>${category}</strong><br>${note}</p>
-      <strong>${formatter.currency(amount)}</strong>
+      <p><strong>${label}</strong><br>${note}</p>
+      <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
     </div>
   </div>
 

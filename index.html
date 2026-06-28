@@ -38,23 +38,23 @@
         <div class="total-container">
           <div class="income-container card">
             <div class="icon-circle">
-              <i class="fa-solid fa-arrow-up income-arrow"></i>
+              <i class="fa-solid fa-arrow-up income"></i>
             </div>
-            <div class="income">
+            <div class="total-income">
               <h4>Total Income</h4>
-              <h2 id="income">10000</h2>
+              <h2 id="income" class="income">10000</h2>
               <p>this month</p>
             </div>
           </div>
 
           <div class="expense-container card">
             <div class="icon-circle">
-              <i class="fa-solid fa-arrow-down expense-arrow"></i>
+              <i class="fa-solid fa-arrow-down expense"></i>
             </div>
 
-            <div class="expense">
+            <div class="total-expense">
               <h4>Total Expense</h4>
-              <h2 id="expense">10000</h2>
+              <h2 id="expense" class="expense">10000</h2>
               <p>this month</p>
             </div>
           </div>
@@ -82,8 +82,8 @@
             <h3>All Transactions</h3>
             <div class="buttons">
               <button class="btn">All</button>
-              <button class="btn">Income</button>
-              <button class="btn">Expense</button>
+              <button class="btn income">Income</button>
+              <button class="btn expense">Expense</button>
             </div>
           </div>
           <ul class="transactions-list all" id="transaction-list"></ul>
@@ -93,12 +93,22 @@
           <p class="announce">Please input your income and expenses</p>
           <form id="transaction-form">
             <div class="form-item">
-              <label>Category</label>
-              <div id="category-tags"></div>
-            </div>
-            <div class="form-item">
               <label for="note-input">Note</label>
-              <input id="note-input" type="text" />
+              <input id="note-input" type="text" required />
+            </div>
+
+            <div class="form-item">
+              <label>Category</label>
+              <select id="category-select">
+                <option value="salary">Salary</option>
+                <option value="gift">Gift</option>
+                <option value="food">Food</option>
+                <option value="utilities">Utilities</option>
+                <option value="transport">Transport</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="housing">Housing</option>
+              </select>
+              <i class="fas fa-angle-down"></i>
             </div>
 
             <div class="form-item">
