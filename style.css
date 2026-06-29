@@ -460,6 +460,15 @@ main {
   margin-bottom: 16px;
 }
 
+select,
+input::placeholder {
+  color: var(--color-text-gray);
+}
+
+option {
+  color: #000;
+}
+
 /* @media (max-width: 768px) {
   #category-total-value {
     height: 100%;

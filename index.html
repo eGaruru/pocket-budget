@@ -93,13 +93,21 @@
           <p class="announce">Please input your income and expenses</p>
           <form id="transaction-form">
             <div class="form-item">
-              <label for="note-input">Note</label>
-              <input id="note-input" type="text" required />
+              <label for="title-input">Title</label>
+              <input
+                id="title-input"
+                type="text"
+                required
+                placeholder="e.g, Lunch, Monthly salary"
+              />
             </div>
 
             <div class="form-item">
-              <label>Category</label>
+              <label for="category-select">Category</label>
               <select id="category-select">
+                <option value="" selected disabled hidden>
+                  Choose category here
+                </option>
                 <option value="salary">Salary</option>
                 <option value="gift">Gift</option>
                 <option value="food">Food</option>
@@ -115,7 +123,12 @@
               <label for="amount-input">Amount</label>
 
               <div class="form-item--amount">
-                <input id="amount-input" type="number" required />
+                <input
+                  id="amount-input"
+                  type="number"
+                  required
+                  placeholder="Enter amount"
+                />
               </div>
             </div>
             <p class="announce">

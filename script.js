@@ -32,36 +32,42 @@ let transactions = [
     category: 'food',
     amount: -1200,
     date: '2024-03-01',
-    note: 'Lunch',
+    title: 'Lunch',
   },
   {
     id: 2,
     category: 'salary',
     amount: 300000,
     date: '2024-03-25',
-    note: 'Monthly salary',
+    title: 'Monthly salary',
   },
   {
     id: 3,
     category: 'utilities',
     amount: -15000,
     date: '2024-03-05',
-    note: 'Electricity',
+    title: 'Electricity',
   },
   {
     id: 4,
     category: 'food',
     amount: -4500,
     date: '2024-03-10',
-    note: 'Dinner',
+    title: 'Dinner',
   },
-  { id: 5, category: 'transport', amount: -2000, date: '2024-03-12', note: '' },
+  {
+    id: 5,
+    category: 'transport',
+    amount: -2000,
+    date: '2024-03-12',
+    title: '',
+  },
   {
     id: 6,
     category: 'salary',
     amount: 5000,
     date: '2024-03-15',
-    note: 'Bonus',
+    title: 'Bonus',
   },
 ];
 
@@ -135,7 +141,7 @@ function getCurrentDate() {
 }
 
 // New transaction
-function createTransaction(category, amount, note) {
+function createTransaction(category, amount, title) {
   const categoryData = categories[category];
 
   if (!categoryData) {
@@ -148,7 +154,7 @@ function createTransaction(category, amount, note) {
     category,
     amount: amount,
     date: getCurrentDate(),
-    note,
+    title,
   };
 }
 
@@ -164,7 +170,6 @@ function validateAmount(amount) {
 }
 
 // ---  UI / Event Handlers ---
-
 const currentBalanceEl = document.getElementById('current-balance');
 const container = document.querySelector('.container');
 const containerInput = document.querySelector('.container-input');
@@ -177,7 +182,7 @@ const transactionListEL = document.getElementById('transaction-list');
 
 const form = document.getElementById('transaction-form');
 const categorySelect = document.getElementById('category-select');
-const noteInput = document.getElementById('note-input');
+const titleInput = document.getElementById('title-input');
 const amountInput = document.getElementById('amount-input');
 
 form.addEventListener('submit', (e) => {
@@ -186,15 +191,21 @@ form.addEventListener('submit', (e) => {
   const amount = validateAmount(amountInput.value);
   if (!amount) return;
 
-  const note = noteInput.value;
-  if (!note.trim()) return;
+  const title = titleInput.value;
+  if (!title.trim()) return;
 
   const selectedCategory = categorySelect.value;
 
-  const newTransaction = createTransaction(selectedCategory, amount, note);
+  const newTransaction = createTransaction(selectedCategory, amount, title);
 
   setTransactions([...transactions, newTransaction]);
   clearInputs();
+});
+
+categorySelect.addEventListener('change', (e) => {
+  if (e.target.value !== '') {
+    categorySelect.style.color = '#000';
+  }
 });
 
 // Update
@@ -289,7 +300,7 @@ function renderTransactionList(transactions) {
 }
 
 function createRecentTransactionEl(transaction) {
-  const { category, note, amount } = transaction;
+  const { category, title, amount } = transaction;
   const { label, icon } = categories[category];
   const date = new Date(transaction.date);
 
@@ -298,7 +309,7 @@ function createRecentTransactionEl(transaction) {
   transactionEl.innerHTML = `
   <p class="transaction-icon">${icon}</p>
     <div class="info">
-      <p><strong>${label}</strong> ${note}</p>
+      <p><strong>${label}</strong> ${title}</p>
       <small>${formatter.date(date)}</small>
     </div>
     <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
@@ -316,7 +327,7 @@ function createRecentTransactionEl(transaction) {
 }
 
 function createTransactionEl(transaction) {
-  const { category, note, amount } = transaction;
+  const { category, title, amount } = transaction;
   const date = new Date(transaction.date);
   const { label, color, icon } = categories[category];
 
@@ -329,7 +340,7 @@ function createTransactionEl(transaction) {
       <p class="transaction-icon">${icon}</p>
     </div>
     <div class="info">
-      <p><strong>${label}</strong><br>${note}</p>
+      <p><strong>${label}</strong><br>${title}</p>
       <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
     </div>
   </div>
@@ -357,7 +368,9 @@ function hexToRgba(hex, alpha) {
 }
 
 function clearInputs() {
-  noteInput.value = '';
+  titleInput.value = '';
+  categorySelect.value = '';
+  categorySelect.style.color = 'var(--color-text-gray)';
   amountInput.value = '';
 }
 
