@@ -331,11 +331,14 @@ function createTransactionEl(transaction) {
   const date = new Date(transaction.date);
   const { label, color, icon } = categories[category];
 
+  const month = formatter.date(date).slice(0, 3).toUpperCase();
+  const day = date.getDate();
+
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction', 'transaction-big');
   transactionEl.innerHTML = `
   <div class="transaction-label">
-    <p class="transaction-date">MAY<br />25</p>
+    <p class="transaction-date">${month}<br />${day}</p>
     <div class="transaction-icon-circle" style="background-color: ${hexToRgba(color, 0.4)}">
       <p class="transaction-icon">${icon}</p>
     </div>
