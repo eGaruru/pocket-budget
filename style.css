@@ -21,7 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   overflow-y: auto;
   margin: 0;
   padding: 20px;
@@ -189,8 +189,8 @@ main {
   width: 200px;
   height: 200px;
 }
-.chart-circle {
-  background: var(--color-border-form);
+.chart-circle,
+.inner-circle {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -198,6 +198,32 @@ main {
   height: 100%;
   border-radius: 50%;
   transform: translate(-50%, -50%);
+}
+
+.chart-circle {
+  background: var(--color-border-form);
+}
+
+.inner-circle {
+  background: #fff;
+  width: 60%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.inner-circle span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.inner-circle small {
+  font-weight: bold;
+  color: var(--color-text-gray);
 }
 
 .category-list {

@@ -176,6 +176,7 @@ const containerInput = document.querySelector('.container-input');
 const incomeEl = document.getElementById('income');
 const expenseEl = document.getElementById('expense');
 const categoryChart = document.getElementById('chart-circle');
+const innerChart = document.getElementById('inner-circle');
 const categoryList = document.getElementById('category-list');
 const recentListEL = document.getElementById('recent-list');
 const transactionListEL = document.getElementById('transaction-list');
@@ -239,7 +240,7 @@ function createCategoryChart(expense, aggregate) {
   let startDeg = 0;
   const gradients = Object.entries(aggregate).map(([key, value]) => {
     const color = categories[key].color;
-    const angle = (value / expense) * 360;
+    const angle = Math.round((value / expense) * 360);
 
     const result = `${color} ${startDeg}deg ${startDeg + angle}deg`;
 
@@ -250,6 +251,11 @@ function createCategoryChart(expense, aggregate) {
 
   categoryChart.style.background = `
   conic-gradient(${gradients.join(',')})
+  `;
+
+  innerChart.innerHTML = `
+  <span>${formatter.currency(expense)}</span>
+  <small>Total</small>
   `;
 }
 
@@ -262,7 +268,7 @@ function createCategoryList(expense, aggregate) {
 
     if (aggregate[key]) {
       const amount = aggregate[key];
-      const percent = Math.trunc((amount / expense) * 100);
+      const percent = Math.round((amount / expense) * 100);
       item.innerHTML = `
       <p class="category-name">${icon} ${label}</p>
       <strong class="category-amount">${formatter.currency(amount)}</strong>
