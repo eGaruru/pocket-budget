@@ -1,99 +1,16 @@
 'use strict';
+import { categories } from './categories.js';
+import { dummyTransactions } from './dummy-data.js';
+import { formatter } from './formatter.js';
+import { loadTransactions, saveTransactions } from './storage.js';
+import { generateId, getCurrentDate, hexToRgba } from './utils.js';
 
 // --- Constants & State ---
-const STORAGE_KEY_TRANSACTIONS = 'pocket-budget-transactions';
 const RECENT_TRANSACTION_COUNT = 5;
 
-const categories = {
-  salary: { label: 'Salary', icon: '💼', color: '#5AA9E6' },
-  gift: { label: 'Gift', icon: '🎁', color: '#F78CC6' },
-  food: { label: 'Food', icon: '🍔', color: '#FD695A' },
-  utilities: {
-    label: 'Utilities',
-    icon: '💡',
-    color: '#FFC857',
-  },
-  transport: {
-    label: 'Transport',
-    icon: '🚃',
-    color: '#4DB6E5',
-  },
-  entertainment: {
-    label: 'Entertainment',
-    icon: '🎥',
-    color: '#8D7CF7',
-  },
-  housing: { label: 'Housing', icon: '🏠', color: '#5BCB95' },
-};
-
-// initial data
-let transactions = [
-  {
-    id: 1,
-    category: 'food',
-    amount: -1200,
-    date: '2024-03-01',
-    title: 'Lunch',
-  },
-  {
-    id: 2,
-    category: 'salary',
-    amount: 300000,
-    date: '2024-03-25',
-    title: 'Monthly salary',
-  },
-  {
-    id: 3,
-    category: 'utilities',
-    amount: -15000,
-    date: '2024-03-05',
-    title: 'Electricity',
-  },
-  {
-    id: 4,
-    category: 'food',
-    amount: -4500,
-    date: '2024-03-10',
-    title: 'Dinner',
-  },
-  {
-    id: 5,
-    category: 'transport',
-    amount: -2000,
-    date: '2024-03-12',
-    title: '',
-  },
-  {
-    id: 6,
-    category: 'salary',
-    amount: 5000,
-    date: '2024-03-15',
-    title: 'Bonus',
-  },
-];
-
-// Format
-const currencyFormatter = new Intl.NumberFormat('ja-JP', {
-  style: 'currency',
-  currency: 'JPY',
-});
-
-const dateFormatter = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
-
-const formatter = {
-  currency(amount) {
-    return currencyFormatter.format(amount);
-  },
-  date(date) {
-    return dateFormatter.format(date);
-  },
-};
-
 // --- Logic Functions ---
+let transactions;
+
 // Summary
 function calculateTotals(transactions) {
   return transactions.reduce(
@@ -124,21 +41,6 @@ function calculateCategoryAggregate(transactions) {
     // 💡 Alternative: when I need to pay attention of memory (Mutating)
     // acc[category] = (acc[category] ?? 0) + absAmount;
   }, {});
-}
-
-// Transaction id
-function generateId() {
-  return crypto.randomUUID();
-}
-
-// Current date
-function getCurrentDate() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // month: 0 ~ 11
-  const day = String(now.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
 }
 
 // New transaction
@@ -382,15 +284,6 @@ function createDeleteBtn(transactionId) {
   return btn;
 }
 
-// Reference: https://stackoverflow.com/posts/28056903/revisions
-function hexToRgba(hex, alpha) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
 function clearInputs() {
   titleInput.value = '';
   categorySelect.value = '';
@@ -406,27 +299,8 @@ function deleteTransaction(deleteId) {
   setTransactions(filteredTransactions);
 }
 
-// --- Local storage ---
-function loadTransactions() {
-  const data = localStorage.getItem(STORAGE_KEY_TRANSACTIONS);
-
-  if (!data) return [];
-
-  try {
-    const parsed = JSON.parse(data);
-    if (!Array.isArray(parsed)) return [];
-    return parsed;
-  } catch {
-    console.error('Failed to parse transactions');
-    return [];
-  }
-}
-
-function saveTransactions(transactions) {
-  localStorage.setItem(STORAGE_KEY_TRANSACTIONS, JSON.stringify(transactions));
-}
-
 const localData = loadTransactions();
-const initialTransactions = localData.length > 0 ? localData : transactions;
+const initialTransactions =
+  localData.length > 0 ? localData : dummyTransactions;
 
 setTransactions(initialTransactions);
