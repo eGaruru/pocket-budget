@@ -339,7 +339,7 @@ main {
   flex-direction: column;
   width: 550px;
   max-width: 100%;
-  max-height: 666px;
+  height: 666px;
   margin: 8px;
   overflow-y: auto;
 }
@@ -486,9 +486,13 @@ main {
   margin-bottom: 16px;
 }
 
-select,
+select.placeholder,
 input::placeholder {
   color: var(--color-text-gray);
+}
+
+select {
+  color: #000;
 }
 
 option {

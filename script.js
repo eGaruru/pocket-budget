@@ -2,6 +2,7 @@
 
 // --- Constants & State ---
 const STORAGE_KEY_TRANSACTIONS = 'pocket-budget-transactions';
+const RECENT_TRANSACTION_COUNT = 5;
 
 const categories = {
   salary: { label: 'Salary', icon: '💼', color: '#5AA9E6' },
@@ -142,9 +143,7 @@ function getCurrentDate() {
 
 // New transaction
 function createTransaction(category, amount, title) {
-  const categoryData = categories[category];
-
-  if (!categoryData) {
+  if (!categories[category]) {
     console.error('Invalid category is selected');
     return;
   }
@@ -205,7 +204,7 @@ form.addEventListener('submit', (e) => {
 
 categorySelect.addEventListener('change', (e) => {
   if (e.target.value !== '') {
-    categorySelect.style.color = '#000';
+    categorySelect.classList.remove('placeholder');
   }
 });
 
@@ -238,10 +237,19 @@ function renderCategory(transactions) {
 
 function createCategoryChart(expense, aggregate) {
   let startDeg = 0;
+
+  innerChart.innerHTML = `
+    <span>${formatter.currency(expense)}</span>
+    <small>Total</small>`;
+
+  if (expense === 0) {
+    categoryChart.style.background = 'var(--color-border-form)';
+    return;
+  }
+
   const gradients = Object.entries(aggregate).map(([key, value]) => {
     const color = categories[key].color;
     const angle = Math.round((value / expense) * 360);
-
     const result = `${color} ${startDeg}deg ${startDeg + angle}deg`;
 
     startDeg += angle;
@@ -252,37 +260,35 @@ function createCategoryChart(expense, aggregate) {
   categoryChart.style.background = `
   conic-gradient(${gradients.join(',')})
   `;
-
-  innerChart.innerHTML = `
-  <span>${formatter.currency(expense)}</span>
-  <small>Total</small>
-  `;
 }
 
 function createCategoryList(expense, aggregate) {
   categoryList.replaceChildren();
   const exclusiveList = [];
+
+  if (expense === 0) {
+    const item = document.createElement('li');
+    item.innerHTML = '<p>No expense yet.</p>';
+    categoryList.appendChild(item);
+    return;
+  }
+
   Object.entries(categories).forEach(([key, value]) => {
     const item = document.createElement('li');
     const { label, icon, color } = value;
 
-    if (aggregate[key]) {
-      const amount = aggregate[key];
-      const percent = Math.round((amount / expense) * 100);
-      item.innerHTML = `
+    const amount = aggregate[key] ?? 0;
+    const percent = Math.round((amount / expense) * 100);
+
+    item.innerHTML = `
       <p class="category-name">${icon} ${label}</p>
       <strong class="category-amount">${formatter.currency(amount)}</strong>
       <strong class="category-percent" style="background-color: ${hexToRgba(color, 0.18)}; color: ${color}">${percent}%</strong>
       `;
 
+    if (aggregate[key]) {
       categoryList.appendChild(item);
     } else {
-      item.innerHTML = `
-      <p class="category-name">${icon} ${label}</p>
-      <strong class="category-amount">${formatter.currency(0)}</strong>
-      <strong class="category-percent" style="background-color: ${hexToRgba(color, 0.18)}; color: ${color}">0%</strong>
-      `;
-
       exclusiveList.push(item);
     }
   });
@@ -297,7 +303,7 @@ function renderTransactionList(transactions) {
   transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
 
   transactions.forEach((transaction, index) => {
-    if (index < 5) {
+    if (index < RECENT_TRANSACTION_COUNT) {
       recentListEL.appendChild(createRecentTransactionEl(transaction));
     }
 
@@ -306,9 +312,8 @@ function renderTransactionList(transactions) {
 }
 
 function createRecentTransactionEl(transaction) {
-  const { category, title, amount } = transaction;
-  const { label, icon } = categories[category];
-  const date = new Date(transaction.date);
+  const { id, category, title, amount, date, label, icon } =
+    getDisplayTransactionData(transaction);
 
   const transactionEl = document.createElement('li');
   transactionEl.classList.add('transaction');
@@ -319,23 +324,16 @@ function createRecentTransactionEl(transaction) {
       <small>${formatter.date(date)}</small>
     </div>
     <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
-  <button class="delete-btn">
-    <i class="fas fa-trash"></i>
-  </button>
   `;
 
-  const deleteBtn = transactionEl.querySelector('button');
-  deleteBtn.addEventListener('click', () => {
-    deleteTransaction(transaction.id);
-  });
+  transactionEl.appendChild(createDeleteBtn(id));
 
   return transactionEl;
 }
 
 function createTransactionEl(transaction) {
-  const { category, title, amount } = transaction;
-  const date = new Date(transaction.date);
-  const { label, color, icon } = categories[category];
+  const { id, category, title, amount, date, label, icon, color } =
+    getDisplayTransactionData(transaction);
 
   const month = formatter.date(date).slice(0, 3).toUpperCase();
   const day = date.getDate();
@@ -353,18 +351,35 @@ function createTransactionEl(transaction) {
       <strong class="amount ${amount > 0 ? 'income' : 'expense'}">${formatter.currency(amount)}</strong>
     </div>
   </div>
-
-  <button class="delete-btn">
-    <i class="fas fa-trash"></i>
-  </button>
   `;
 
-  const deleteBtn = transactionEl.querySelector('button');
-  deleteBtn.addEventListener('click', () => {
-    deleteTransaction(transaction.id);
-  });
+  transactionEl.appendChild(createDeleteBtn(id));
 
   return transactionEl;
+}
+
+function getDisplayTransactionData(transaction) {
+  const { id, title, category, amount } = transaction;
+  const date = new Date(transaction.date);
+
+  return {
+    id,
+    title,
+    category,
+    amount,
+    date,
+    ...categories[category],
+  };
+}
+
+function createDeleteBtn(transactionId) {
+  const btn = document.createElement('button');
+  btn.classList.add('delete-btn');
+  btn.innerHTML = `<i class="fas fa-trash"></i>`;
+
+  btn.addEventListener('click', () => deleteTransaction(transactionId));
+
+  return btn;
 }
 
 // Reference: https://stackoverflow.com/posts/28056903/revisions
@@ -379,7 +394,7 @@ function hexToRgba(hex, alpha) {
 function clearInputs() {
   titleInput.value = '';
   categorySelect.value = '';
-  categorySelect.style.color = 'var(--color-text-gray)';
+  categorySelect.classList.add('placeholder');
   amountInput.value = '';
 }
 
