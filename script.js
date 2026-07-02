@@ -10,6 +10,7 @@ const RECENT_TRANSACTION_COUNT = 5;
 
 // --- Logic Functions ---
 let transactions;
+let currentFilter = 'all';
 
 // Summary
 function calculateTotals(transactions) {
@@ -82,10 +83,33 @@ const categoryList = document.getElementById('category-list');
 const recentListEL = document.getElementById('recent-list');
 const transactionListEL = document.getElementById('transaction-list');
 
+const allBtn = document.getElementById('all-btn');
+const incomeBtn = document.getElementById('income-btn');
+const expenseBtn = document.getElementById('expense-btn');
+
 const form = document.getElementById('transaction-form');
 const categorySelect = document.getElementById('category-select');
 const titleInput = document.getElementById('title-input');
 const amountInput = document.getElementById('amount-input');
+
+allBtn.addEventListener('click', () => setFilter('all'));
+incomeBtn.addEventListener('click', () => setFilter('income'));
+expenseBtn.addEventListener('click', () => setFilter('expense'));
+
+function setFilter(filter) {
+  currentFilter = filter;
+  renderTransactionList(getFilteredTransaction());
+}
+
+function getFilteredTransaction() {
+  if (currentFilter === 'income') {
+    return transactions.filter((transaction) => transaction.amount > 0);
+  } else if (currentFilter === 'expense') {
+    return transactions.filter((transaction) => transaction.amount < 0);
+  } else {
+    return transactions;
+  }
+}
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -114,11 +138,16 @@ categorySelect.addEventListener('change', (e) => {
 function setTransactions(newTransactions) {
   transactions = newTransactions;
 
-  saveTransactions(newTransactions);
+  saveTransactions(transactions);
 
-  renderTotals(newTransactions);
-  renderCategory(newTransactions);
-  renderTransactionList(newTransactions);
+  renderDashboard(transactions);
+}
+
+function renderDashboard(transactions) {
+  renderTotals(transactions);
+  renderCategory(transactions);
+  renderRecentTransactions(transactions);
+  renderTransactionList(getFilteredTransaction());
 }
 
 function renderTotals(transactions) {
@@ -200,17 +229,22 @@ function createCategoryList(expense, aggregate) {
   }
 }
 
-function renderTransactionList(transactions) {
+function renderRecentTransactions(transactions) {
   recentListEL.replaceChildren();
+
+  transactions
+    .slice(0, RECENT_TRANSACTION_COUNT)
+    .forEach((transaction) =>
+      recentListEL.appendChild(createRecentTransactionEl(transaction)),
+    );
+}
+
+function renderTransactionList(transactions) {
   transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
 
-  transactions.forEach((transaction, index) => {
-    if (index < RECENT_TRANSACTION_COUNT) {
-      recentListEL.appendChild(createRecentTransactionEl(transaction));
-    }
-
-    transactionListEL.appendChild(createTransactionEl(transaction));
-  });
+  transactions.forEach((transaction) =>
+    transactionListEL.appendChild(createTransactionEl(transaction)),
+  );
 }
 
 function createRecentTransactionEl(transaction) {
