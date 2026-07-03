@@ -8,9 +8,17 @@ import { generateId, getCurrentDate, hexToRgba } from './utils.js';
 // --- Constants & State ---
 const RECENT_TRANSACTION_COUNT = 5;
 
+const sortType = {
+  dateDesc: 'date-desc',
+  dateAsc: 'date-asc',
+  amountDesc: 'amount-desc',
+  amountAsc: 'amount-asc',
+};
+
 // --- Logic Functions ---
 let transactions;
 let currentFilter = 'all';
+let currentSort = sortType.dateDesc;
 
 // Summary
 function calculateTotals(transactions) {
@@ -86,6 +94,7 @@ const transactionListEL = document.getElementById('transaction-list');
 const allBtn = document.getElementById('all-btn');
 const incomeBtn = document.getElementById('income-btn');
 const expenseBtn = document.getElementById('expense-btn');
+const sortSelect = document.getElementById('sort-select');
 
 const form = document.getElementById('transaction-form');
 const categorySelect = document.getElementById('category-select');
@@ -95,19 +104,46 @@ const amountInput = document.getElementById('amount-input');
 allBtn.addEventListener('click', () => setFilter('all'));
 incomeBtn.addEventListener('click', () => setFilter('income'));
 expenseBtn.addEventListener('click', () => setFilter('expense'));
+sortSelect.addEventListener('change', (e) => setSort(e.target.value));
+
+function setSort(sort) {
+  currentSort = sortType[sort];
+  renderTransactionList(getDisplayTransactions());
+}
 
 function setFilter(filter) {
   currentFilter = filter;
-  renderTransactionList(getFilteredTransaction());
+  renderTransactionList(getDisplayTransactions());
 }
 
-function getFilteredTransaction() {
+function getDisplayTransactions() {
+  return getSortedTransactions(getFilteredTransactions(), currentSort);
+}
+
+function getFilteredTransactions() {
   if (currentFilter === 'income') {
     return transactions.filter((transaction) => transaction.amount > 0);
   } else if (currentFilter === 'expense') {
     return transactions.filter((transaction) => transaction.amount < 0);
   } else {
     return transactions;
+  }
+}
+
+function getSortedTransactions(transactions, sort) {
+  const copied = [...transactions];
+
+  switch (sort) {
+    case sortType.dateDesc:
+      return copied.sort((a, b) => new Date(b.date) - new Date(a.date));
+    case sortType.dateAsc:
+      return copied.sort((a, b) => new Date(a.date) - new Date(b.date));
+    case sortType.amountDesc:
+      return copied.sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
+    case sortType.amountAsc:
+      return copied.sort((a, b) => Math.abs(a.amount) - Math.abs(b.amount));
+    default:
+      return copied;
   }
 }
 
@@ -146,8 +182,10 @@ function setTransactions(newTransactions) {
 function renderDashboard(transactions) {
   renderTotals(transactions);
   renderCategory(transactions);
-  renderRecentTransactions(transactions);
-  renderTransactionList(getFilteredTransaction());
+  renderRecentTransactions(
+    getSortedTransactions(transactions, sortType.dateDesc),
+  );
+  renderTransactionList(getDisplayTransactions());
 }
 
 function renderTotals(transactions) {

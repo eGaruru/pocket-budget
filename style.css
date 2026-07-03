@@ -337,15 +337,15 @@ main {
 .transactions-container {
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   max-width: 100%;
   height: 666px;
   margin: 8px;
-  overflow-y: auto;
 }
 
 .transactions-list.all {
   padding: 4px 0;
+  overflow-y: auto;
 }
 
 .transactions-header {
@@ -402,7 +402,7 @@ main {
 .transactions-input-container {
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   max-width: 100%;
   height: 400px;
   margin: 8px;
@@ -430,12 +430,28 @@ main {
 
 .btn.income {
   background-color: var(--color-income-secondary);
-  border: 0;
+  border: 1px solid var(--color-income-secondary);
 }
 
 .btn.expense {
   background-color: var(--color-expense-secondary);
-  border: 0;
+  border: 1px solid var(--color-expense-secondary);
+}
+
+.sort-select {
+  cursor: pointer;
+  background-color: #fff;
+  color: var(--color-text-gray);
+  padding: 8px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  appearance: none;
+  text-align: center;
+}
+
+.sort-select option {
+  color: #000;
 }
 
 .btn.submit-btn,
@@ -486,16 +502,16 @@ main {
   margin-bottom: 16px;
 }
 
-select.placeholder,
+.category-select.placeholder,
 input::placeholder {
   color: var(--color-text-gray);
 }
 
-select {
+.category-select {
   color: #000;
 }
 
-option {
+.category-select option {
   color: #000;
 }
 

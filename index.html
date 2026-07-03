@@ -89,6 +89,12 @@
               <button class="btn expense expense-btn" id="expense-btn">
                 Expense
               </button>
+              <select id="sort-select" class="sort-select">
+                <option value="dateDesc" selected>Newest</option>
+                <option value="dateAsc">Oldest</option>
+                <option value="amountDesc">Highest Amount</option>
+                <option value="amountAsc">Lowest Amount</option>
+              </select>
             </div>
           </div>
           <ul class="transactions-list all" id="transaction-list"></ul>
@@ -109,7 +115,7 @@
 
             <div class="form-item">
               <label for="category-select">Category</label>
-              <select id="category-select" class="placeholder">
+              <select id="category-select" class="category-select placeholder">
                 <option value="" selected disabled hidden>
                   Choose category here
                 </option>
