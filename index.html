@@ -72,7 +72,7 @@
         </div>
 
         <div class="recent-transactions-container card">
-          <h4>Recent Transactions</h4>
+          <h3>Recent Transactions</h3>
           <ul class="transactions-list recent" id="recent-list"></ul>
         </div>
       </section>
@@ -103,37 +103,40 @@
           <h3>Add Transaction</h3>
           <p class="announce">Please input your income and expenses</p>
           <form id="transaction-form">
-            <div class="form-item">
-              <label for="title-input">Title</label>
-              <input
-                id="title-input"
-                type="text"
-                required
-                placeholder="e.g, Lunch, Monthly salary"
-              />
-            </div>
+            <div class="form-container">
+              <div class="form-item">
+                <label for="title-input">Title</label>
+                <input
+                  id="title-input"
+                  type="text"
+                  required
+                  placeholder="e.g, Lunch, Monthly salary"
+                />
+              </div>
 
-            <div class="form-item">
-              <label for="category-select">Category</label>
-              <select id="category-select" class="category-select placeholder">
-                <option value="" selected disabled hidden>
-                  Choose category here
-                </option>
-                <option value="salary">Salary</option>
-                <option value="gift">Gift</option>
-                <option value="food">Food</option>
-                <option value="utilities">Utilities</option>
-                <option value="transport">Transport</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="housing">Housing</option>
-              </select>
-              <i class="fas fa-angle-down"></i>
-            </div>
+              <div class="form-item">
+                <label for="category-select">Category</label>
+                <select
+                  id="category-select"
+                  class="category-select placeholder"
+                >
+                  <option value="" selected disabled hidden>
+                    Choose category here
+                  </option>
+                  <option value="salary">Salary</option>
+                  <option value="gift">Gift</option>
+                  <option value="food">Food</option>
+                  <option value="utilities">Utilities</option>
+                  <option value="transport">Transport</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="housing">Housing</option>
+                </select>
+                <i class="fas fa-angle-down"></i>
+              </div>
 
-            <div class="form-item">
-              <label for="amount-input">Amount</label>
+              <div class="form-item">
+                <label for="amount-input">Amount</label>
 
-              <div class="form-item--amount">
                 <input
                   id="amount-input"
                   type="number"
@@ -142,15 +145,17 @@
                 />
               </div>
             </div>
+
             <p class="announce">
               For expense, please enter a negative amount (e.g, -1200)
             </p>
 
-            <button class="btn clear-btn">Clear</button>
-
-            <button class="btn submit-btn" type="submit">
-              Add Transaction
-            </button>
+            <div class="button-container">
+              <button class="btn clear-btn">Clear</button>
+              <button class="btn submit-btn" type="submit">
+                Add Transaction
+              </button>
+            </div>
           </form>
         </div>
       </section>
