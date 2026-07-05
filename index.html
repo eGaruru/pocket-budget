@@ -7,12 +7,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     />
+    <link rel="icon" href="/img/wallet.png" />
     <link rel="stylesheet" href="style.css" />
     <title>Pocket Budget</title>
   </head>
   <body>
     <header>
-      <i class="fa-solid fa-wallet"></i>
+      <img class="title-img" src="/img/wallet.png" alt="wallet-image" />
+
       <div class="title">
         <h1>Pocket Budget</h1>
         <h3>How much money is in my pocket?</h3>
@@ -30,10 +32,7 @@
               <p>as of May 25, 2024</p>
             </div>
           </div>
-          <img
-            src="./img/savings_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
-            alt=""
-          />
+          <img src="/img/piggy-bank.png" alt="piggy-bank" />
         </div>
         <div class="total-container">
           <div class="income-container card">
@@ -61,14 +60,14 @@
         </div>
 
         <div class="category-container card">
-          <div class="current">
-            <h3>Expenses by Category</h3>
+          <h3>Expenses by Category</h3>
+          <div class="chart-list-container">
             <div class="chart">
               <div id="chart-circle" class="chart-circle"></div>
               <div id="inner-circle" class="inner-circle"></div>
             </div>
+            <ul id="category-list" class="category-list"></ul>
           </div>
-          <ul id="category-list" class="category-list"></ul>
         </div>
 
         <div class="recent-transactions-container card">
@@ -147,11 +146,13 @@
             </div>
 
             <p class="announce">
-              For expense, please enter a negative amount (e.g, -1200)
+              For expense, please enter a
+              <span class="anounce-red">negative</span> amount (e.g,
+              <strong class="anounce-red">-1200</strong>)
             </p>
 
             <div class="button-container">
-              <button class="btn clear-btn">Clear</button>
+              <button class="btn clear-btn" id="clear-btn">Clear</button>
               <button class="btn submit-btn" type="submit">
                 Add Transaction
               </button>
