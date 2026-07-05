@@ -100,6 +100,7 @@ const form = document.getElementById('transaction-form');
 const categorySelect = document.getElementById('category-select');
 const titleInput = document.getElementById('title-input');
 const amountInput = document.getElementById('amount-input');
+const clearBtn = document.getElementById('clear-btn');
 
 allBtn.addEventListener('click', () => setFilter('all'));
 incomeBtn.addEventListener('click', () => setFilter('income'));
@@ -168,6 +169,11 @@ categorySelect.addEventListener('change', (e) => {
   if (e.target.value !== '') {
     categorySelect.classList.remove('placeholder');
   }
+});
+
+clearBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  clearInputs();
 });
 
 // Update
