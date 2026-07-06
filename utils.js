@@ -11,8 +11,15 @@ export function getCurrentDate() {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0'); // month: 0 ~ 11
   const day = String(now.getDate()).padStart(2, '0');
+  const hours = toZeroStrFromNumber(now.getHours());
+  const minutes = toZeroStrFromNumber(now.getMinutes());
+  const seconds = toZeroStrFromNumber(now.getSeconds());
 
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}
+
+function toZeroStrFromNumber(num) {
+  return String(num).padStart(2, '0');
 }
 
 // Reference: https://stackoverflow.com/posts/28056903/revisions

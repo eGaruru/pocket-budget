@@ -81,8 +81,7 @@ function validateAmount(amount) {
 
 // ---  UI / Event Handlers ---
 const currentBalanceEl = document.getElementById('current-balance');
-const container = document.querySelector('.container');
-const containerInput = document.querySelector('.container-input');
+const currentDate = document.getElementById('current-date');
 const incomeEl = document.getElementById('income');
 const expenseEl = document.getElementById('expense');
 const categoryChart = document.getElementById('chart-circle');
@@ -198,6 +197,7 @@ function renderTotals(transactions) {
   const { income, expense } = calculateTotals(transactions);
 
   currentBalanceEl.textContent = formatter.currency(income - expense);
+  currentDate.textContent = `as of ${formatter.date(new Date())}`;
   incomeEl.textContent = formatter.currency(income);
   expenseEl.textContent = formatter.currency(expense);
 }
@@ -242,11 +242,16 @@ function createCategoryList(expense, aggregate) {
   const exclusiveList = [];
 
   if (expense === 0) {
+    categoryList.classList.add('empty');
+
     const item = document.createElement('li');
-    item.innerHTML = '<p>No expense yet.</p>';
+    item.innerHTML =
+      '<span>No expense yet.<br/>Start tracking your spending!</span>';
     categoryList.appendChild(item);
     return;
   }
+
+  categoryList.classList.remove('empty');
 
   Object.entries(categories).forEach(([key, value]) => {
     const item = document.createElement('li');
@@ -276,6 +281,11 @@ function createCategoryList(expense, aggregate) {
 function renderRecentTransactions(transactions) {
   recentListEL.replaceChildren();
 
+  if (transactions.length === 0) {
+    recentListEL.appendChild(displayEmptyResult());
+    return;
+  }
+
   transactions
     .slice(0, RECENT_TRANSACTION_COUNT)
     .forEach((transaction) =>
@@ -285,6 +295,11 @@ function renderRecentTransactions(transactions) {
 
 function renderTransactionList(transactions) {
   transactionListEL.replaceChildren(); // or transactionListEL.innerHTML = ""
+
+  if (transactions.length === 0) {
+    transactionListEL.appendChild(displayEmptyResult());
+    return;
+  }
 
   transactions.forEach((transaction) =>
     transactionListEL.appendChild(createTransactionEl(transaction)),
@@ -336,6 +351,15 @@ function createTransactionEl(transaction) {
   transactionEl.appendChild(createDeleteBtn(id));
 
   return transactionEl;
+}
+
+function displayEmptyResult() {
+  const textEl = document.createElement('div');
+  textEl.classList.add('announce-empty');
+  textEl.innerHTML =
+    '<span>No transactions yet. <br/> Add your first transaction!</span>';
+
+  return textEl;
 }
 
 function getDisplayTransactionData(transaction) {
