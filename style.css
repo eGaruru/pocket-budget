@@ -23,7 +23,6 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100vw;
   overflow-y: auto;
   margin: 0;
   padding: 20px;
@@ -67,6 +66,7 @@ main {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1.5fr;
+  place-items: center;
 }
 
 /* General style*/
@@ -244,7 +244,6 @@ main {
   grid-template-columns: 1.5fr 1fr 40px;
   align-items: center;
   gap: 6px;
-  padding-left: 20px;
 }
 
 .category-list li p {
@@ -593,8 +592,8 @@ input::placeholder {
     width: 100%;
   }
 
-  .recent-transactions-container:has(.transactions-list .announce-empty),
-  .transactions-container:has(.transactions-list .announce-empty) {
+  .recent-transactions-container,
+  .transactions-container {
     height: auto;
   }
 
@@ -693,22 +692,51 @@ input::placeholder {
     max-width: 400px;
   }
 
+  .card {
+    padding: 12px 18px;
+  }
+
   .title-img {
-    width: 60px;
+    width: 50px;
+  }
+
+  .title h1 {
+    font-size: 24px;
+  }
+
+  .title h3 {
+    font-size: 12px;
   }
 
   .summary,
   .transactions {
-    max-width: 400px;
-    width: 100%;
+    max-width: 330px;
+    flex: 1;
   }
 
   .card h1 {
-    font-size: 42px;
+    font-size: 32px;
+  }
+
+  .card h2 {
+    font-size: 20px;
+  }
+
+  .card h3 {
+    font-size: 16px;
   }
 
   .current-container img {
-    width: 120px;
+    width: 100px;
+  }
+
+  .category-list li {
+    margin: 4px 0;
+  }
+
+  .category-name,
+  .category-list li strong {
+    font-size: 14px;
   }
 
   .btn,
@@ -717,24 +745,75 @@ input::placeholder {
     letter-spacing: -0.5px;
   }
 
+  .transaction-icon-circle {
+    height: 40px;
+    width: 40px;
+    margin: 0 8px;
+  }
+
+  .transactions-list.recent .transaction-icon {
+    font-size: 24px;
+  }
+
+  .transactions-list.recent .info p {
+    font-size: 12px;
+  }
+
+  .transactions-list.recent .info small {
+    font-size: 10px;
+  }
+
+  .transaction {
+    padding: 8px 30px 8px 40px;
+  }
+
+  .transaction-icon-circle .transaction-icon {
+    font-size: 20px;
+  }
+
+  .transaction-date {
+    font-size: 18px;
+    width: 50px;
+  }
+
   .transaction-label .info {
     width: 58%;
   }
 
   .transaction-label .info p {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .amount {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   .transaction-date {
-    font-size: 14px;
-    width: 40px;
+    font-size: 11px;
+    width: 30px;
   }
 
   .announce {
     font-size: 12px;
+  }
+
+  .form-item input,
+  .form-item select {
+    font-size: 14px;
+  }
+
+  .btn,
+  .sort-select {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .btn.clear-btn,
+  .btn.submit-btn {
+    font-size: 12px;
+  }
+
+  .delete-btn i {
+    font-size: 14px;
   }
 }
