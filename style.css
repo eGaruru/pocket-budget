@@ -25,35 +25,35 @@ body {
   min-height: 100vh;
   overflow-y: auto;
   margin: 0;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  margin: 12px 0;
+  margin: 0.75rem 0;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 6.25rem;
 }
 
 .title-img {
-  width: 80px;
+  width: 5rem;
 }
 
 .title {
-  margin-left: 18px;
+  margin-left: 1.125rem;
   height: 100%;
 }
 
 .title h1 {
   margin: 0;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .title h3 {
@@ -64,7 +64,7 @@ header {
 
 main {
   display: grid;
-  gap: 10px;
+  gap: 0.625rem;
   grid-template-columns: 1fr 1.5fr;
   place-items: center;
 }
@@ -72,9 +72,9 @@ main {
 /* General style*/
 .card {
   background-color: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 12px 24px;
+  border-radius: 1.125rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
+  padding: 0.75rem 1.5rem;
 }
 
 .income {
@@ -95,10 +95,10 @@ main {
 .current-container {
   display: flex;
   width: 100%;
-  height: 200px;
+  height: 12.5rem;
   align-items: center;
   justify-content: space-between;
-  margin: 8px;
+  margin: 0.5rem;
 }
 
 .card h2 {
@@ -106,35 +106,35 @@ main {
 }
 
 .card h1 {
-  font-size: 58px;
+  font-size: 3.625rem;
 }
 
 .current-date {
   background-color: var(--color-border);
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.75rem;
 }
 
 .current-date i {
   color: var(--color-btn);
-  margin-right: 4px;
+  margin-right: 0.25rem;
 }
 
 .current-date p {
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0;
 }
 
 .current-container img {
-  width: 160px;
+  width: 10rem;
 }
 
 .total-container {
   display: flex;
   width: 100%;
-  height: 150px;
+  height: 9.375rem;
   justify-content: space-between;
 }
 
@@ -148,10 +148,10 @@ main {
 
 .icon-circle {
   position: relative;
-  height: 70px;
-  width: 70px;
+  height: 4.375rem;
+  width: 4.375rem;
   border-radius: 50%;
-  margin-right: 16px;
+  margin-right: 1rem;
 }
 
 .income-container .icon-circle {
@@ -167,29 +167,29 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 40px;
+  font-size: 2.5rem;
 }
 
 .total-income h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
 }
 
 .total-expense h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
 }
 
 .category-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 300px;
-  margin: 8px;
+  height: 18.75rem;
+  margin: 0.5rem;
 }
 
 .chart-list-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .chart {
@@ -207,14 +207,14 @@ main {
 
 .chart-circle {
   background: var(--color-border-form);
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
 }
 
 .inner-circle {
   background: #fff;
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,7 +224,7 @@ main {
 }
 
 .inner-circle span {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
@@ -241,9 +241,9 @@ main {
 
 .category-list li {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 40px;
+  grid-template-columns: 1.5fr 1fr 2.5rem;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .category-list li p {
@@ -258,7 +258,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 220px;
+  min-height: 13.75rem;
   margin: 0;
   text-align: center;
 }
@@ -271,13 +271,13 @@ main {
 .category-percent {
   display: inline-flex;
   justify-content: center;
-  padding: 2px 4px;
-  border-radius: 20px;
+  padding: 0.125rem 0.25rem;
+  border-radius: 1.25rem;
 }
 
 .recent-transactions-container {
   width: 100%;
-  height: 360px;
+  height: 22.5rem;
 }
 
 .transactions-list {
@@ -291,7 +291,7 @@ main {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  padding: 8px 50px;
+  padding: 0.5rem 3.125rem;
   border-top: 1px solid var(--color-border);
 }
 
@@ -300,12 +300,12 @@ main {
 }
 
 .transaction.transaction-big {
-  padding: 0px 8px 0px 50px;
+  padding: 0 0.5rem 0 3.125rem;
 }
 
 .transactions-list.recent .transaction-icon {
   position: absolute;
-  font-size: 30px;
+  font-size: 1.875rem;
   margin: 0;
   top: 50%;
   left: 0;
@@ -321,7 +321,7 @@ main {
   border: 0;
   background-color: transparent;
   transition: all 0.1s ease-in-out;
-  font-size: 16px;
+  font-size: 1rem;
   opacity: 0;
   visibility: hidden;
   color: #9d9d9d;
@@ -338,11 +338,11 @@ main {
 
 .info p {
   margin: 0;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .amount {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1;
 }
 
@@ -357,12 +357,12 @@ main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 666px;
-  margin: 8px 8px 8px 0;
+  height: 41.625rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
 }
 
 .transactions-list.all {
-  padding: 4px 0;
+  padding: 0.25rem 0;
   overflow-y: auto;
 }
 
@@ -380,17 +380,17 @@ main {
 }
 
 .transaction-icon-circle {
-  height: 70px;
-  width: 70px;
+  height: 4.375rem;
+  width: 4.375rem;
   border-radius: 50%;
-  margin: 0 32px 0 8px;
+  margin: 0 2rem 0 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .transaction-icon-circle .transaction-icon {
-  font-size: 34px;
+  font-size: 2.125rem;
   margin: 0;
   line-height: 1.1;
 }
@@ -404,24 +404,24 @@ main {
 }
 
 .transaction-label .info p {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .transaction-date {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--color-text-gray);
-  width: 80px;
+  width: 5rem;
 }
 
 .transaction.transaction-big {
-  padding: 4px 0;
+  padding: 0.25rem 0;
 }
 
 .transactions-input-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 360px;
+  height: 22.5rem;
 }
 
 .btn {
@@ -429,20 +429,20 @@ main {
   background-color: #fff;
   color: var(--color-btn);
   border: 1px solid var(--color-btn);
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
 }
 
 .btn:hover {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.125rem calc(1rem * (5 / 16)) rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
   transform: scale(0.98);
-  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.1);
 }
 
 .btn.income {
@@ -459,9 +459,9 @@ main {
   cursor: pointer;
   background-color: #fff;
   color: var(--color-text-gray);
-  padding: 8px 8px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
   font-weight: bold;
   appearance: none;
   font-family: 'Montserrat', sans-serif;
@@ -474,8 +474,8 @@ main {
 
 .btn.submit-btn,
 .btn.clear-btn {
-  font-size: 16px;
-  padding: 12px 24px;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
 }
 
 .submit-btn {
@@ -487,7 +487,7 @@ main {
 .form-container {
   display: grid;
   width: 100%;
-  gap: 10px;
+  gap: 0.625rem;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -496,17 +496,17 @@ main {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   position: relative;
 }
 
 .form-item input,
 .form-item select {
-  height: 40px;
-  padding: 8px 12px;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid var(--color-border-form);
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 0.375rem;
+  font-size: 1rem;
 }
 
 .form-item select {
@@ -517,45 +517,45 @@ main {
 
 .form-item i {
   position: absolute;
-  top: calc(50% + 4px);
-  right: 8px;
+  top: calc(50% + 0.25rem);
+  right: 0.5rem;
 }
 
 .form-item label {
-  width: 80px;
-  margin-bottom: 4px;
+  width: 5rem;
+  margin-bottom: 0.25rem;
   font-weight: bold;
 }
 
 .announce {
   margin: 0;
-  margin-bottom: 16px;
-  font-size: 16px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
-.anounce-red {
+.announce-red {
   color: var(--color-expense-primary);
 }
 
 .announce-empty {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 6.25rem;
   text-align: center;
 }
 
 .form-amount .announce {
   margin: 0;
-  margin-left: 14px;
-  font-size: 14px;
+  margin-left: 0.875rem;
+  font-size: 0.875rem;
   border-bottom: dashed 1px var(--color-border-form);
 }
 
 .button-container {
-  margin: 30px 0 20px;
+  margin: 1.875rem 0 1.25rem;
   display: grid;
   grid-template-columns: 1fr 1.5fr;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .category-select.placeholder,
@@ -582,13 +582,13 @@ input::placeholder {
 @media (max-width: 1200px) {
   main {
     grid-template-columns: 1fr;
-    max-width: 700px;
+    max-width: 43.75rem;
     width: 100%;
     gap: 0;
   }
   .summary,
   .transactions {
-    max-width: 700px;
+    max-width: 43.75rem;
     width: 100%;
   }
 
@@ -598,7 +598,7 @@ input::placeholder {
   }
 
   .transactions-list .announce-empty {
-    margin: 50px 0;
+    margin: 3.125rem 0;
   }
 
   .transaction-label .info {
@@ -613,16 +613,16 @@ input::placeholder {
 /* Tablet & Mobile */
 @media (max-width: 768px) {
   main {
-    max-width: 500px;
+    max-width: 31.25rem;
   }
   .summary,
   .transactions {
-    max-width: 500px;
+    max-width: 31.25rem;
   }
 
   .total-container {
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
     height: auto;
   }
 
@@ -649,36 +649,36 @@ input::placeholder {
 
   .chart-list-container:has(.category-list.empty) .chart {
     display: block;
-    height: 200px;
+    height: 12.5rem;
   }
 
   .category-list.empty {
-    min-height: 100px;
+    min-height: 6.25rem;
   }
 
   .chart {
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 
   .transactions-header {
     align-items: start;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
   }
 
   .transaction-icon-circle {
-    height: 50px;
-    width: 50px;
-    margin: 0 16px 0 8px;
+    height: 3.125rem;
+    width: 3.125rem;
+    margin: 0 1rem 0 0.5rem;
   }
 
   .transaction-icon-circle .transaction-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .transaction-date {
-    font-size: 18px;
-    width: 50px;
+    font-size: 1.125rem;
+    width: 3.125rem;
   }
 
   .form-container {
@@ -689,91 +689,91 @@ input::placeholder {
 /* Small Mobile */
 @media (max-width: 480px) {
   main {
-    max-width: 400px;
+    max-width: 25rem;
   }
 
   .card {
-    padding: 12px 18px;
+    padding: 0.75rem 1.125rem;
   }
 
   .title-img {
-    width: 50px;
+    width: 3.125rem;
   }
 
   .title h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .title h3 {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .summary,
   .transactions {
-    max-width: 330px;
+    max-width: 20.625rem;
     flex: 1;
   }
 
   .card h1 {
-    font-size: 32px;
+    font-size: 2rem;
   }
 
   .card h2 {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .card h3 {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .current-container img {
-    width: 100px;
+    width: 6.25rem;
   }
 
   .category-list li {
-    margin: 4px 0;
+    margin: 0.25rem 0;
   }
 
   .category-name,
   .category-list li strong {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .btn,
   .sort-select {
-    padding: 10px;
+    padding: 0.625rem;
     letter-spacing: -0.5px;
   }
 
   .transaction-icon-circle {
-    height: 40px;
-    width: 40px;
-    margin: 0 8px;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin: 0 0.5rem;
   }
 
   .transactions-list.recent .transaction-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   .transactions-list.recent .info p {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .transactions-list.recent .info small {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 
   .transaction {
-    padding: 8px 30px 8px 40px;
+    padding: 0.5rem 1.875rem 0.5rem 2.5rem;
   }
 
   .transaction-icon-circle .transaction-icon {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .transaction-date {
-    font-size: 18px;
-    width: 50px;
+    font-size: 1.125rem;
+    width: 3.125rem;
   }
 
   .transaction-label .info {
@@ -781,39 +781,39 @@ input::placeholder {
   }
 
   .transaction-label .info p {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .amount {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .transaction-date {
-    font-size: 11px;
-    width: 30px;
+    font-size: calc(1rem * (11 / 16));
+    width: 1.875rem;
   }
 
   .announce {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .form-item input,
   .form-item select {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .btn,
   .sort-select {
-    font-size: 12px;
-    padding: 4px 8px;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
   }
 
   .btn.clear-btn,
   .btn.submit-btn {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .delete-btn i {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
