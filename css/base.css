@@ -1,0 +1,60 @@
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url('../img/bg.png') no-repeat center center/cover;
+  font-family: var(--font-main);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--space-xl);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: var(--space-md) 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6.25rem;
+}
+
+.title-img {
+  width: 5rem;
+}
+
+.title {
+  margin-left: 1.125rem;
+  height: 100%;
+}
+
+.title h1 {
+  margin: 0;
+  margin-top: var(--space-xl);
+}
+
+.title h3 {
+  margin: 0;
+  font-weight: 300;
+  color: var(--color-text-gray);
+}
+
+.income {
+  color: var(--color-income) !important;
+}
+
+.expense {
+  color: var(--color-expense) !important;
+}

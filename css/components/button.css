@@ -1,0 +1,120 @@
+/* Button */
+
+.button-container {
+  margin: 1.875rem 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 0.625rem;
+}
+
+.btn,
+.sort-select {
+  padding: 0.625rem;
+  letter-spacing: -0.5px;
+}
+
+.btn,
+.sort-select {
+  font-size: var(--text-2xs);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.btn.clear-btn,
+.btn.submit-btn {
+  font-size: var(--text-2xs);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  transition: all 0.1s ease-in-out;
+  font-size: var(--text-sm);
+  opacity: 0;
+  visibility: hidden;
+  color: #9d9d9d;
+}
+
+.transaction:hover .delete-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-btn:hover {
+  color: #f34843;
+}
+
+.delete-btn i {
+  font-size: var(--text-xs);
+}
+
+.btn {
+  cursor: pointer;
+  background-color: #fff;
+  color: var(--color-btn-blue);
+  border: 1px solid var(--color-btn-blue);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 0.375rem;
+  font-size: var(--text-xs);
+  font-weight: bold;
+  font-family: var(--font-main);
+}
+
+.btn:hover {
+  box-shadow: 0 0.125rem calc(1rem * (5 / 16)) rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.1);
+}
+
+.btn.income {
+  background-color: var(--color-income-bg);
+  border: 1px solid var(--color-income-bg);
+}
+
+.btn.expense {
+  background-color: var(--color-expense-bg);
+  border: 1px solid var(--color-expense-bg);
+}
+
+.sort-select {
+  cursor: pointer;
+  background-color: #fff;
+  color: var(--color-text-gray);
+  padding: var(--space-sm) var(--space-sm);
+  border-radius: 0.375rem;
+  font-size: var(--text-xs);
+  font-weight: bold;
+  appearance: none;
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.sort-select option {
+  color: #000;
+}
+
+.btn.submit-btn,
+.btn.clear-btn {
+  font-size: var(--text-sm);
+  padding: var(--space-md) 1.5rem;
+}
+
+.submit-btn {
+  color: #fff;
+  background-color: var(--color-btn-blue);
+  border: 1px solid var(--color-btn-blue);
+}
+
+.button-container {
+  margin: 1.875rem 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 0.625rem;
+}

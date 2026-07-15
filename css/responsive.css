@@ -1,0 +1,248 @@
+/* Responsive */
+
+/* Desktop */
+@media (max-width: 1580px) {
+  .transaction-label .info {
+    width: 65%;
+  }
+}
+
+/* Small Desktop*/
+@media (max-width: 1200px) {
+  main {
+    grid-template-columns: 1fr;
+    max-width: 43.75rem;
+    width: 100%;
+    gap: 0;
+  }
+  .summary,
+  .transactions {
+    max-width: 43.75rem;
+    width: 100%;
+  }
+
+  .recent-transactions-container,
+  .transactions-container {
+    height: auto;
+  }
+
+  .transactions-list .announce-empty {
+    margin: 3.125rem 0;
+  }
+
+  .transaction-label .info {
+    width: 62%;
+  }
+
+  .transactions-input-container {
+    height: auto;
+  }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 768px) {
+  main {
+    max-width: 31.25rem;
+  }
+  .summary,
+  .transactions {
+    max-width: 31.25rem;
+  }
+
+  .total-container {
+    flex-direction: column;
+    gap: 0.625rem;
+    height: auto;
+  }
+
+  .income-container,
+  .expense-container {
+    width: 100%;
+  }
+
+  .category-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .chart-list-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .chart-list-container:has(.category-list.empty) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chart-list-container:has(.category-list.empty) .chart {
+    display: block;
+    height: 12.5rem;
+  }
+
+  .category-list.empty {
+    min-height: 6.25rem;
+  }
+
+  .chart {
+    margin-top: var(--space-xl);
+  }
+
+  .transactions-header {
+    align-items: start;
+    flex-direction: column;
+    margin-bottom: var(--space-md);
+  }
+
+  .transaction-icon-circle {
+    height: 3.125rem;
+    width: 3.125rem;
+    margin: 0 var(--space-lg) 0 var(--space-sm);
+  }
+
+  .transaction-icon-circle .transaction-icon {
+    font-size: var(--text-lg);
+  }
+
+  .transaction-date {
+    font-size: var(--text-md);
+    width: 3.125rem;
+  }
+
+  .form-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  main {
+    max-width: 25rem;
+  }
+
+  .card {
+    padding: var(--space-md) 1.125rem;
+  }
+
+  .title-img {
+    width: 3.125rem;
+  }
+
+  .title h1 {
+    font-size: var(--text-lg);
+  }
+
+  .title h3 {
+    font-size: var(--text-2xs);
+  }
+
+  .summary,
+  .transactions {
+    max-width: 20.625rem;
+    flex: 1;
+  }
+
+  .card h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .card h2 {
+    font-size: var(--text-base);
+  }
+
+  .card h3 {
+    font-size: var(--text-sm);
+  }
+
+  .current-container img {
+    width: 6.25rem;
+  }
+
+  .category-list li {
+    margin: var(--space-xs) 0;
+  }
+
+  .category-name,
+  .category-list li strong {
+    font-size: var(--text-xs);
+  }
+
+  .btn,
+  .sort-select {
+    padding: 0.625rem;
+    letter-spacing: -0.5px;
+  }
+
+  .transaction-icon-circle {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin: 0 var(--space-sm);
+  }
+
+  .transactions-list.recent .transaction-icon {
+    font-size: var(--text-lg);
+  }
+
+  .transactions-list.recent .info p {
+    font-size: var(--text-2xs);
+  }
+
+  .transactions-list.recent .info small {
+    font-size: 0.625rem;
+  }
+
+  .transaction {
+    padding: var(--space-sm) 1.875rem var(--space-sm) 2.5rem;
+  }
+
+  .transaction-icon-circle .transaction-icon {
+    font-size: var(--text-base);
+  }
+
+  .transaction-date {
+    font-size: var(--text-md);
+    width: 3.125rem;
+  }
+
+  .transaction-label .info {
+    width: 58%;
+  }
+
+  .transaction-label .info p {
+    font-size: var(--text-2xs);
+  }
+
+  .amount {
+    font-size: var(--text-2xs);
+  }
+
+  .transaction-date {
+    font-size: calc(1rem * (11 / 16));
+    width: 1.875rem;
+  }
+
+  .announce {
+    font-size: var(--text-2xs);
+  }
+
+  .form-item input,
+  .form-item select {
+    font-size: var(--text-xs);
+  }
+
+  .btn,
+  .sort-select {
+    font-size: var(--text-2xs);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .btn.clear-btn,
+  .btn.submit-btn {
+    font-size: var(--text-2xs);
+  }
+
+  .delete-btn i {
+    font-size: var(--text-xs);
+  }
+}

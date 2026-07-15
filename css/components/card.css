@@ -1,0 +1,16 @@
+/* Card */
+
+.card {
+  background-color: #fff;
+  border-radius: 1.125rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
+  padding: var(--space-md) 1.5rem;
+}
+
+.card h2 {
+  color: var(--color-text-gray);
+}
+
+.card h1 {
+  font-size: var(--text-6xl);
+}
