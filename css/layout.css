@@ -1,5 +1,32 @@
 /* Layout */
 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6.25rem;
+}
+
+.header-title-img {
+  width: 5rem;
+}
+
+.header-title {
+  margin-left: 1.125rem;
+  height: 100%;
+}
+
+.header-title h1 {
+  margin: 0;
+  margin-top: var(--space-xl);
+}
+
+.header-title h3 {
+  margin: 0;
+  font-weight: 300;
+  color: var(--color-text-gray);
+}
+
 main {
   display: grid;
   gap: 0.625rem;

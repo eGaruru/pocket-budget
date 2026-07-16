@@ -80,3 +80,45 @@ input::placeholder {
 .category-select option {
   color: #000;
 }
+
+.sort-select {
+  cursor: pointer;
+  background-color: #fff;
+  color: var(--color-text-gray);
+  padding: var(--space-sm) var(--space-sm);
+  border-radius: 0.375rem;
+  font-size: var(--text-xs);
+  font-weight: bold;
+  appearance: none;
+  font-family: var(--font-main);
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.sort-select option {
+  color: #000;
+}
+
+.form-button-container {
+  margin: 1.875rem 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 0.625rem;
+}
+
+.btn.clear-btn,
+.btn.submit-btn {
+  font-size: var(--text-2xs);
+}
+
+.btn.submit-btn,
+.btn.clear-btn {
+  font-size: var(--text-sm);
+  padding: var(--space-md) 1.5rem;
+}
+
+.submit-btn {
+  color: #fff;
+  background-color: var(--color-btn-blue);
+  border: 1px solid var(--color-btn-blue);
+}

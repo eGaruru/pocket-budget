@@ -24,33 +24,6 @@ h4 {
   margin: var(--space-md) 0;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 6.25rem;
-}
-
-.title-img {
-  width: 5rem;
-}
-
-.title {
-  margin-left: 1.125rem;
-  height: 100%;
-}
-
-.title h1 {
-  margin: 0;
-  margin-top: var(--space-xl);
-}
-
-.title h3 {
-  margin: 0;
-  font-weight: 300;
-  color: var(--color-text-gray);
-}
-
 .income {
   color: var(--color-income) !important;
 }

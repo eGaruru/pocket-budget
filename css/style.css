@@ -5,9 +5,9 @@
 @import url('./variables.css');
 @import url('./base.css');
 @import url('./layout.css');
+@import url('./components/button.css');
 @import url('./components/card.css');
 @import url('./components/summary.css');
 @import url('./components/transaction.css');
 @import url('./components/form.css');
-@import url('./components/button.css');
 @import url('./responsive.css');

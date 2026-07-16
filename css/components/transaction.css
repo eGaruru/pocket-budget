@@ -110,3 +110,41 @@
 .transaction.transaction-big {
   padding: var(--space-xs) 0;
 }
+
+.btn.income {
+  background-color: var(--color-income-bg);
+  border: 1px solid var(--color-income-bg);
+}
+
+.btn.expense {
+  background-color: var(--color-expense-bg);
+  border: 1px solid var(--color-expense-bg);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+  transition: all 0.1s ease-in-out;
+  font-size: var(--text-sm);
+  opacity: 0;
+  visibility: hidden;
+  color: #9d9d9d;
+}
+
+.transaction:hover .delete-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-btn:hover {
+  color: #f34843;
+}
+
+.delete-btn i {
+  font-size: var(--text-xs);
+}

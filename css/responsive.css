@@ -125,15 +125,15 @@
     padding: var(--space-md) 1.125rem;
   }
 
-  .title-img {
+  .header-title-img {
     width: 3.125rem;
   }
 
-  .title h1 {
+  .header-title h1 {
     font-size: var(--text-lg);
   }
 
-  .title h3 {
+  .header-title h3 {
     font-size: var(--text-2xs);
   }
 
